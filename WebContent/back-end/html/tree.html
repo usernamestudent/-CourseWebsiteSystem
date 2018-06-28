@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title>后台管理中心</title>
+<link rel="stylesheet" href="../ztree/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="../ztree/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="../ztree/jquery.ztree.core.js"></script>
+<script>
+        var zTreeObj;
+        var setting = {}; // zTree 的参数配置，后面详解
+        var zNodes = [ // zTree 的数据属性，此处使用标准json格式
+            {
+                name: "所有栏目",
+                open: true,
+                children: [{
+                        name: "首页",
+                        children: [{name: "课程简介", name: "课程负责人", name: "课程动态", name: "教学资源", name: "课程组成员"}]
+                    },
+                    {
+                        name: "课程介绍",
+                        children: [{name: "课程简介", name: "教学方法", name: "课程安排", name: "课程大纲", name: "课程理念与目标", name: "课程动态"}]
+                    },
+                    {
+                        name: "教学团队",
+                        children: [{name: "团队资料"}]
+                    },
+                    {
+                        name: "课程设计",
+                        children: [{name: "课程设计规划"}]
+                    },
+                    {
+                        name: "课程资源",
+                        children: [{name: "教学视频", name: "教学课件"}]
+                    },
+                    {
+                        name: "问题与答疑",
+                        children: [{name: "问题查看"}, {name: "答疑方案"}]
+                    },
+                    {
+                        name: "课程研究",
+                        children: [{name: "研究项", name: "研究成果"}]
+                    }
+                ]
+            }
+        ];
+        $(document).ready(function () {
+            zTreeObj = $.fn.zTree.init($("#tree"), setting, zNodes); //初始化zTree，三个参数一次分别是容器(zTree 的容器 className 别忘了设置为 "ztree")、参数配置、数据源
+        });
+    </script>
+
+</head>
+
+<body>
+	<ul id="tree" class="ztree"></ul>
+</body>
+</html>
