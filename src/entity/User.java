@@ -6,15 +6,15 @@ import annotations.Table;
 @Table(name="user", Name="用户")
 public class User {
 	@Column(isId=true, name="id", ChineseName="用户id")
-	private Integer id;
+	private String id;
 	@Column(name="password", ChineseName="密码")
 	private String password;
 	@Column(name="name", ChineseName="名称")
 	private String name;
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getPassword() {

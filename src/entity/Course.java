@@ -22,8 +22,12 @@ public class Course {
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(String id) {
+		if(id != null) {
+			this.id = Integer.valueOf(id);
+		}else {
+			this.id = null;
+		}
 	}
 	public String getName() {
 		return name;
@@ -52,7 +56,11 @@ public class Course {
 	public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
+	public void setCreateTime(String createTime) {
+		if(createTime != null) {
+			this.createTime = Date.valueOf(createTime);
+		}else {
+			this.createTime = null;
+		}
 	}
 }

@@ -6,9 +6,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import util.DBUtil;
+
 import annotations.Column;
 import annotations.Table;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+import util.DBUtil;
 
 
 public class ObjectDao {
@@ -67,7 +70,7 @@ public class ObjectDao {
 		return DBUtil.executeList(sql, oldList);
 	}
 
-	public static ArrayList<Object> Select(Object object) {
+	public static JSONArray Select(Object object) {
 		Class<?> clazz = object.getClass();
 		Table entity = clazz.getAnnotation(Table.class);
 		String sql = "Select * from " + entity.name() + " where 1 = 1";
@@ -83,6 +86,7 @@ public class ObjectDao {
 				for (int i = 0; i < list.size(); i++) {
 					preparedStatement.setObject(i + 1, list.get(i));
 				}
+				System.out.println(preparedStatement.toString());
 				resultSet = preparedStatement.executeQuery();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -94,17 +98,19 @@ public class ObjectDao {
 				e.printStackTrace();
 			} 
 		}
-
-		ArrayList<Object> result = new ArrayList<>();
+		System.out.println(sql);
+		JSONArray result = new JSONArray();
 		try {
 			while(resultSet.next()) {
 				Object obj = clazz.getConstructor().newInstance();
 				Field[] resultField = obj.getClass().getDeclaredFields();
+				JSONObject jsonObject = new JSONObject();
 				for (Field field : resultField) {
 					field.setAccessible(true);
-					field.set(obj, resultSet.getObject(field.getName()));
+					String value = resultSet.getString(field.getName());
+				    jsonObject.put(field.getName(), value.toString());
 				}
-				result.add(obj);
+				result.put(jsonObject);
 			}
 		} catch (SQLException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();

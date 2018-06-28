@@ -1,7 +1,9 @@
 package entity;
 
-import annotations.Table;
+import java.sql.Date;
+
 import annotations.Column;
+import annotations.Table;
 
 @Table(name="article", Name="文章")
 public class Article {
@@ -14,15 +16,19 @@ public class Article {
 	@Column(name="column_name", ChineseName="栏目名称")
 	private String columnName;
 	@Column(name="create_time", ChineseName="创建时间")
-	private String createTime;
+	private Date createTime;
 	@Column(name="isPass", ChineseName="状态")
 	private Integer isPass;//0表示false, 1表示true
-	
+
 	public Integer getArticleId() {
 		return articleId;
 	}
-	public void setArticleId(Integer articleId) {
-		this.articleId = articleId;
+	public void setArticleId(String articleId) {
+		if(articleId != null) {
+			this.articleId = Integer.valueOf(articleId);
+		}else {
+			this.articleId = null;
+		}
 	}
 	public String getTitle() {
 		return title;
@@ -42,16 +48,25 @@ public class Article {
 	public void setColumnName(String columnName) {
 		this.columnName = columnName;
 	}
-	public String getCreateTime() {
+	public Date getCreateTime() {
 		return createTime;
 	}
 	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
+		if(createTime != null) {
+			this.createTime = Date.valueOf(createTime);
+		}else {
+			this.createTime = null;
+		}
 	}
 	public Integer isPass() {
 		return isPass;
 	}
-	public void setPass(Integer isPass) {
-		this.isPass = isPass;
+	public void setPass(String isPass) {
+		if(isPass != null) {
+			this.isPass = Integer.valueOf(isPass);
+		}else {
+			this.isPass = null;
+		}
+
 	}
 }
