@@ -14,8 +14,12 @@ public class CourseGroup {
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
-		this.id = id;
+	public void setId(String id) {
+		if(id != null) {
+			this.id = Integer.valueOf(id);
+		}else {
+			this.id = null;
+		}
 	}
 	public String getColumnName() {
 		return columnName;
@@ -26,7 +30,12 @@ public class CourseGroup {
 	public Integer isHead() {
 		return isHead;
 	}
-	public void setHead(Integer isHead) {
-		this.isHead = isHead;
+	public void setHead(String isHead) {
+		if(isHead != null) {
+			this.isHead = Integer.valueOf(isHead);
+		}else {
+			this.isHead = null;
+		}
+		
 	}
 }

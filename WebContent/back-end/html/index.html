@@ -10,8 +10,9 @@
 <link rel="stylesheet" href="../css/pintuer.css">
 <link rel="stylesheet" href="../css/admin.css">
 <script src="../js/jquery.js"></script>
+<script src="../js/index.js"></script>
 </head>
-<body style="background-color: #f2f9fd;">
+<body style="background-color: #f2f9fd;" onload="showName()">
 	<div class="header bg-main">
 		<div class="logo margin-big-left fadein-top">
 			<h1>
@@ -20,7 +21,7 @@
 			</h1>
 		</div>
 		<div class="head-l">
-			欢迎您,超级管理员&nbsp;&nbsp;&nbsp;<a href="##" class="button button-little bg-blue"><span
+			<span id="text">欢迎您,超级管理员</span>&nbsp;&nbsp;&nbsp;<a href="##" class="button button-little bg-blue"><span
 				class="icon-wrench"></span> 修改密码</a> &nbsp;&nbsp;<a
 				class="button button-little bg-red" href="login.html"><span
 				class="icon-power-off"></span> 退出登录</a>
