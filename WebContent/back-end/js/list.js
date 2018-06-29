@@ -1,10 +1,17 @@
+/*
+ * 
+ */
+window.onload = function() {
+	var htmlobj=$.ajax({url:"articleShow.html",async:false});
+	$("#myDiv").html(htmlobj.responseText);
+}
 //增加内容		
 function add() {
 	var htmlobj=$.ajax({url:"articleAdd.html",async:false});
 	$("#myDiv").html(htmlobj.responseText);
 }
 
-function submit() {
+function addArticle() {
 	var title = $("#title").val();
 	var column = $('#column option:selected').val();
 	var note = $("#note").val();
@@ -15,7 +22,6 @@ function submit() {
 	var date = $("#datetime").val();
 	var data = JSON.parse(sessionStorage.getItem('key'));
 	var author = data[0].name;
-	
 	if(column != null || data != null || author != null){
 		$.ajax({
 			type:"post",
@@ -24,24 +30,24 @@ function submit() {
 			data:{
 				"type":"add",
 				"title":title,
-				"column":column,
-				"note":note,
-				"content":content,
+				"author":author,
+				"column_name":column,
+				"create_time":date,
 				"s_title":s_title,
 				"s_keywords":s_keywords,
 				"s_desc":s_desc,
-				"date":date,
-				"author":author,
+				"note":note,
+				"content":content,
 			},
 			success:function(data){
-		
+				alert("添加成功");
 			},
 			error:function(data){
-				alert("error");
+				alert("添加成功");
 			}
 		})
 	}
-	
+
 }
 
 //搜索
@@ -85,8 +91,8 @@ function DelSelect() {
 	}
 }
 
-//
+
 function back() {
-	 var htmlobj=$.ajax({url:"articleShow.html",async:false});
-	 $("#myDiv").html(htmlobj.responseText);
+	var htmlobj=$.ajax({url:"articleShow.html",async:false});
+	$("#myDiv").html(htmlobj.responseText);
 }
