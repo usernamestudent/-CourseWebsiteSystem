@@ -12,30 +12,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import dao.ObjectDao;
 import entity.Article;
 import entity.Course;
 import entity.CourseGroup;
-import entity.Message;
 import entity.Part;
 import entity.User;
-import net.sf.json.JSONArray;
 
 /**
- * Servlet implementation class ObjectServlet
+ * Servlet implementation class ObjectUpdateServlet
  */
-@WebServlet("/ObjectServlet")
-public class ObjectServlet extends HttpServlet {
+@WebServlet("/ObjectUpdateServlet")
+public class ObjectUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ObjectServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ObjectUpdateServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,27 +43,37 @@ public class ObjectServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		HashMap<String, String> hashMap = getHashMap(request);
 		String method = hashMap.get("method");
-		String type = hashMap.get("type");
+		String id = hashMap.get("id");
+		boolean falg = false;
 		switch(method){
 		case "part":
-			operation(type, new Part(), hashMap, out);
+			Part oldPart = new Part();
+			oldPart.setId(id);
+			falg = update(new Part(), oldPart, hashMap);
 			break;
 		case "courseGroup":
-			operation(type, new CourseGroup(), hashMap, out);
+			CourseGroup oldCourseGroup = new CourseGroup();
+			oldCourseGroup.setId(id);
+			falg = update(new CourseGroup(), oldCourseGroup, hashMap);
 			break;
 		case "course":
-			operation(type, new Course(), hashMap, out);
+			Course oldCourse = new Course();
+			oldCourse.setId(id);
+			falg = update(new Course(), oldCourse, hashMap);
 			break;
 		case "article":
-			operation(type, new Article(), hashMap, out);
+			Article oldArticle = new Article();
+			oldArticle.setId(id);
+			falg = update(new Article(), oldArticle, hashMap);
 			break;
 		case "user":
-			operation(type, new User(), hashMap, out);
-			break;
-		case "message":
-			operation(type, new Message(), hashMap, out);
+			User oldUser = new User();
+			oldUser.setId(id);
+			falg = update(new User(), oldUser, hashMap);
 			break;
 		}
+		
+		out.append(String.valueOf(falg));
 	}
 
 	/**
@@ -76,7 +83,7 @@ public class ObjectServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
+	
 	private HashMap<String, String> getHashMap(HttpServletRequest request){
 		Enumeration<String> enu = request.getParameterNames();
 		HashMap<String, String> hashMap = new HashMap<>();
@@ -87,8 +94,8 @@ public class ObjectServlet extends HttpServlet {
 		}
 		return hashMap;
 	}
-
-	private void operation(String type, Object obj, HashMap<String, String> hashMap, PrintWriter out) {
+	
+	private boolean update(Object obj, Object obj2, HashMap<String, String> hashMap) {
 		Class<?> clz = obj.getClass();
 		Field[] fields = clz.getDeclaredFields();
 		for(Field field: fields) {
@@ -102,21 +109,8 @@ public class ObjectServlet extends HttpServlet {
 				}
 			}
 		}
-		boolean falg = false;
-		switch(type){
-		case "add":
-			falg= ObjectDao.create(obj);
-			out.println(falg);
-			break;
-		case "delete":
-			falg = ObjectDao.delete(obj);
-			out.println(falg);
-			break;
-		case "select":
-			JSONArray list = ObjectDao.Select(obj);
-			out.append(list.toString());
-			break;
-		}
+		
+		return ObjectDao.update(obj2, obj);
 	}
 
 }

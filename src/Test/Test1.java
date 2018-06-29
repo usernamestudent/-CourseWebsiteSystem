@@ -17,6 +17,7 @@ public class Test1 {
 		//System.out.println(dao.Select(user));
 		HashMap<String, String> hash = new HashMap<>();
 		System.out.println(hash.get("1"));
-		System.out.println(Integer.valueOf("1"));
+		String a = "";
+		System.out.println(a == null);
 	}
 }
