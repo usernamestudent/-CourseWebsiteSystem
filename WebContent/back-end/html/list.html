@@ -11,8 +11,7 @@
 <link rel="stylesheet" href="../css/admin.css">
 <script src="../js/jquery.js"></script>
 <script src="../js/pintuer.js"></script>
-<script src="../js/angular.min.js"></script>
-<script src="../js/angular-route.js"></script>
+<script src="../js/list.js"></script>
 <script>
 	window.onload = function() {
 		 var htmlobj=$.ajax({url:"articleShow.html",async:false});
@@ -21,54 +20,7 @@
 </script>
 </head>
 <body>
-	<iframe src="tree.html" width="15%" height="200px"></iframe>
+	<iframe src="tree.html" width="15%" height="500px"></iframe>
 	<div style="float: right; width: 85%; display: inline-block;" id="myDiv"></div>
 </body>
-<script type="text/javascript">
-	function add() {
-		 var htmlobj=$.ajax({url:"articleAdd.html",async:false});
-		 $("#myDiv").html(htmlobj.responseText);
-	}
-	//搜索
-	function changesearch() {
-
-	}
-
-	//单个删除
-	function del(id, mid, iscid) {
-		if (confirm("您确定要删除吗?")) {
-
-		}
-	}
-
-	//全选
-	$("#checkall").click(function() {
-		$("input[name='id[]']").each(function() {
-			if (this.checked) {
-				this.checked = false;
-			} else {
-				this.checked = true;
-			}
-		});
-	})
-
-	//批量删除
-	function DelSelect() {
-		var Checkbox = false;
-		$("input[name='id[]']").each(function() {
-			if (this.checked == true) {
-				Checkbox = true;
-			}
-		});
-		if (Checkbox) {
-			var t = confirm("您确认要删除选中的内容吗？");
-			if (t == false)
-				return false;
-			$("#listform").submit();
-		} else {
-			alert("请选择您要删除的内容!");
-			return false;
-		}
-	}
-</script>
 </html>

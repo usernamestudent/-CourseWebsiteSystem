@@ -4,7 +4,7 @@
 function login(){
 	var userId = $("#userId").val();
 	var password = $("#password").val();
-	if(userId != "" || password != ""){
+	if(userId != null || password != null){
 		$.ajax({
 			type:"post",
 			url:"../../ObjectServlet?method=user",
@@ -15,9 +15,9 @@ function login(){
 				"password":password,
 			},
 			success:function(data){
-				var ruselt = JSON.parse(data);
-				var name = ruselt[0].name;
-				window.location.href = encodeURI("../html/index.html?name=" + name) ;
+				sessionStorage.clear();
+				sessionStorage.setItem('key', data);
+				window.location.href = "../html/index.html";
 			},
 			error:function(data){
 				alert("error");
