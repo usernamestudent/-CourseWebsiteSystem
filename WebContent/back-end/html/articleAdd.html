@@ -21,7 +21,7 @@
 						<label>文章标题：</label>
 					</div>
 					<div class="field">
-						<input type="text" class="input w50" ng-model="titleName" name="title"
+						<input type="text" class="input w50" id="title"
 							data-validate="required:请输入标题" />
 						<div class="tips"></div>
 					</div>
@@ -31,7 +31,7 @@
 						<label>分类标题：</label>
 					</div>
 					<div class="field">
-						<select name="cid" class="input w50">
+						<select id="column" class="input w50">
 							<option value="">请选择分类</option>
 							<option value="">产品分类</option>
 							<option value="">产品分类</option>
@@ -46,7 +46,7 @@
 						<label>描述：</label>
 					</div>
 					<div class="field">
-						<textarea class="input" name="note" style="height: 90px;"></textarea>
+						<textarea class="input" id="note" style="height: 90px;"></textarea>
 						<div class="tips"></div>
 					</div>
 				</div>
@@ -55,7 +55,7 @@
 						<label>内容：</label>
 					</div>
 					<div class="field">
-						<textarea name="content" class="input"
+						<textarea id="content" class="input"
 							style="height: 450px; border: 1px solid #ddd;"></textarea>
 						<div class="tips"></div>
 					</div>
@@ -67,7 +67,7 @@
 						<label>关键字标题：</label>
 					</div>
 					<div class="field">
-						<input type="text" class="input" name="s_title" value="" />
+						<input type="text" class="input" id="s_title" value="" />
 					</div>
 				</div>
 				<div class="form-group">
@@ -83,8 +83,7 @@
 						<label>关键字描述：</label>
 					</div>
 					<div class="field">
-						<textarea class="input" name="s_desc"
-							style="height: 80px;"></textarea>
+						<textarea class="input" id="s_desc" style="height: 80px;"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
@@ -92,18 +91,8 @@
 						<label>发布时间：</label>
 					</div>
 					<div class="field">
-						<input type="text" class="laydate-icon input w50" name="datetime"
-							value="" data-validate="required:日期不能为空"
-							style="padding: 10px !important; height: auto !important; border: 1px solid #ddd !important;" />
-						<div class="tips"></div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="label">
-						<label>作者：</label>
-					</div>
-					<div class="field">
-						<input type="text" class="input w50" name="authour" value="" />
+						<input type="date" class="laydate-icon input w50" id="datetime"
+							value="" data-validate="required:日期不能为空" />
 						<div class="tips"></div>
 					</div>
 				</div>
@@ -112,8 +101,10 @@
 						<label></label>
 					</div>
 					<div class="field">
-						<button class="button bg-main icon-check-square-o" type="submit">
-							提交</button>
+						<button class="button bg-main icon-check" type="submit"
+							onclick="submit()">提交</button>
+						<button class="button bg-sub icon-undo" onclick="back()">
+							返回</button>
 					</div>
 				</div>
 			</form>

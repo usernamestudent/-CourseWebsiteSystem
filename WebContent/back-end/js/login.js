@@ -4,7 +4,7 @@
 function login(){
 	var userId = $("#userId").val();
 	var password = $("#password").val();
-	if(userId != "" && password != ""){
+	if(userId != null || password != null){
 		$.ajax({
 			type:"post",
 			url:"../../ObjectServlet?method=user",
