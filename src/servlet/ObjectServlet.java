@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
+import java.sql.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 
@@ -12,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
+import annotations.Column;
 import dao.ObjectDao;
 import entity.Article;
 import entity.Course;
@@ -79,7 +80,7 @@ public class ObjectServlet extends HttpServlet {
 
 	private HashMap<String, String> getHashMap(HttpServletRequest request){
 		Enumeration<String> enu = request.getParameterNames();
-		HashMap<String, String> hashMap = new HashMap<>();
+		HashMap<String, String> hashMap = new HashMap<String, String>();
 		while(enu.hasMoreElements()){  
 			String paraName = (String)enu.nextElement(); 
 			String paravalue = (String)request.getParameter(paraName);
@@ -92,12 +93,20 @@ public class ObjectServlet extends HttpServlet {
 		Class<?> clz = obj.getClass();
 		Field[] fields = clz.getDeclaredFields();
 		for(Field field: fields) {
-			String name = field.getName();
+			Column column = field.getAnnotation(Column.class);
+			String name = column.name();
 			if(hashMap.get(name) != null) {
 				try {
 					field.setAccessible(true);
-					field.set(obj, hashMap.get(name));
-				} catch (IllegalArgumentException | IllegalAccessException e) {
+					String value = hashMap.get(name);
+					if(column.type().equals("Date")) {
+						field.set(obj, Date.valueOf(value));
+					}else if(column.type().equals("Integer")) {
+						field.set(obj, Integer.valueOf(value));
+					}else {
+						field.set(obj, value);
+					}
+				} catch (IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
@@ -106,11 +115,11 @@ public class ObjectServlet extends HttpServlet {
 		switch(type){
 		case "add":
 			falg= ObjectDao.create(obj);
-			out.println(falg);
+			out.println(String.valueOf(falg));
 			break;
 		case "delete":
 			falg = ObjectDao.delete(obj);
-			out.println(falg);
+			out.println(String.valueOf(falg));
 			break;
 		case "select":
 			JSONArray list = ObjectDao.Select(obj);

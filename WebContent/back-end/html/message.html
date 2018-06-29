@@ -34,7 +34,7 @@
 			<table class="table table-hover text-center">
 				<thead>
 					<tr>
-						<th width="120">ID</th>
+						<th width="120">*</th>
 						<th>姓名</th>
 						<th>电话</th>
 						<th>邮箱</th>
@@ -44,77 +44,7 @@
 						<th>操作</th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr>
-						<td><input type="checkbox" name="id[]" value="1" /> 1</td>
-						<td>神夜</td>
-						<td>13420925611</td>
-						<td>564379992@qq.com</td>
-						<td>深圳市民治街道</td>
-						<td>这是一套后台UI，喜欢的朋友请多多支持谢谢。</td>
-						<td>2016-07-01</td>
-						<td><div class="button-group">
-								<a class="button border-red" href="javascript:void(0)"
-									onclick="return del(1)"><span class="icon-trash-o"></span>
-									删除</a>
-							</div></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="id[]" value="1" /> 1</td>
-						<td>神夜</td>
-						<td>13420925611</td>
-						<td>564379992@qq.com</td>
-						<td>深圳市民治街道</td>
-						<td>这是一套后台UI，喜欢的朋友请多多支持谢谢。</td>
-						<td>2016-07-01</td>
-						<td><div class="button-group">
-								<a class="button border-red" href="javascript:void(0)"
-									onclick="return del(1)"><span class="icon-trash-o"></span>
-									删除</a>
-							</div></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="id[]" value="1" /> 1</td>
-						<td>神夜</td>
-						<td>13420925611</td>
-						<td>564379992@qq.com</td>
-						<td>深圳市民治街道</td>
-						<td>这是一套后台UI，喜欢的朋友请多多支持谢谢。</td>
-						<td>2016-07-01</td>
-						<td><div class="button-group">
-								<a class="button border-red" href="javascript:void(0)"
-									onclick="return del(1)"><span class="icon-trash-o"></span>
-									删除</a>
-							</div></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="id[]" value="1" /> 1</td>
-						<td>神夜</td>
-						<td>13420925611</td>
-						<td>564379992@qq.com</td>
-						<td>深圳市民治街道</td>
-						<td>这是一套后台UI，喜欢的朋友请多多支持谢谢。</td>
-						<td>2016-07-01</td>
-						<td><div class="button-group">
-								<a class="button border-red" href="javascript:void(0)"
-									onclick="return del(1)"><span class="icon-trash-o"></span>
-									删除</a>
-							</div></td>
-					</tr>
-					<tr>
-						<td><input type="checkbox" name="id[]" value="1" /> 1</td>
-						<td>神夜</td>
-						<td>13420925611</td>
-						<td>564379992@qq.com</td>
-						<td>深圳市民治街道</td>
-						<td>这是一套后台UI，喜欢的朋友请多多支持谢谢。</td>
-						<td>2016-07-01</td>
-						<td><div class="button-group">
-								<a class="button border-red" href="javascript:void(0)"
-									onclick="return del(1)"><span class="icon-trash-o"></span>
-									删除</a>
-							</div></td>
-					</tr>
+				<tbody id="tbody">
 				</tbody>
 				<tfoot>
 					<tr>
@@ -127,39 +57,5 @@
 			</table>
 		</div>
 	</form>
-	<script type="text/javascript">
-		function del(id) {
-			if (confirm("您确定要删除吗?")) {
-
-			}
-		}
-
-		$("#checkall").click(function() {
-			$("input[name='id[]']").each(function() {
-				if (this.checked) {
-					this.checked = false;
-				} else {
-					this.checked = true;
-				}
-			});
-		})
-
-		function DelSelect() {
-			var Checkbox = false;
-			$("input[name='id[]']").each(function() {
-				if (this.checked == true) {
-					Checkbox = true;
-				}
-			});
-			if (Checkbox) {
-				var t = confirm("您确认要删除选中的内容吗？");
-				if (t == false)
-					return false;
-			} else {
-				alert("请选择您要删除的内容!");
-				return false;
-			}
-		}
-	</script>
 </body>
 </html>

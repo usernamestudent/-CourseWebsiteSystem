@@ -9,37 +9,40 @@
 <title>后台管理中心</title>
 </head>
 <body>
-<form method="post" action="" id="listform">
-			<div class="panel admin-panel">
-				<div class="panel-head">
-					<strong class="icon-reorder"> 文章列表</strong> <a href=""
-						style="float: right; display: none;">添加字段</a>
-				</div>
-				<div class="padding border-bottom">
-					<ul class="search" style="padding-left: 10px;">
-						<li><a onclick="add()"
+	<form method="post" action="" id="listform">
+		<div class="panel admin-panel">
+			<div class="panel-head">
+				<strong class="icon-reorder"> 文章列表</strong> <a href=""
+					style="float: right; display: none;">添加字段</a>
+			</div>
+			<div class="padding border-bottom">
+				<ul class="search" style="padding-left: 10px;">
+					<li><a onclick="add()"
 						class="button border-main icon-plus-square-o"> 添加内容</a></li>
-						<li><a href="javascript:void(0)"
-							class="button border-red icon-trash-o"
-							style="padding: 10px 15px;" onclick="DelSelect()"> 批量删除</a></li>
-						<li style="float: right"><input type="text"
-							placeholder="请输入搜索关键字" name="keywords" class="input"
-							style="width: 250px; line-height: 17px; display: inline-block" />
-							<a href="javascript:void(0)"
-							class="button border-main icon-search" onclick="changesearch()">
-								搜索</a></li>
-					</ul>
-				</div>
-				<table class="table table-hover text-center">
+					<li><a href="javascript:void(0)"
+						class="button border-red icon-trash-o" style="padding: 10px 15px;"
+						onclick="DelSelect()"> 批量删除</a></li>
+					<li style="float: right"><input type="text"
+						placeholder="请输入搜索关键字" name="keywords" class="input"
+						style="width: 250px; line-height: 17px; display: inline-block" />
+						<a href="javascript:void(0)"
+						class="button border-main icon-search" onclick="changesearch()">
+							搜索</a></li>
+				</ul>
+			</div>
+			<table class="table table-hover text-center">
+				<thead>
 					<tr>
 						<th style="text-align: left; padding-left: 20px; width: 1px"><input
-							type="checkbox" id="checkall" onclick="checkAll()"/></th>
+							type="checkbox" id="checkall" onclick="checkAll()" /></th>
 						<th>文章标题</th>
 						<th>作者</th>
 						<th>栏目名称</th>
 						<th>创建日期</th>
 						<th width="310">操作</th>
 					</tr>
+				</thead>
+				<tbody>
 					<tr>
 						<td style="text-align: left; padding-left: 20px;"><input
 							type="checkbox" name="id" value="" /></td>
@@ -54,14 +57,17 @@
 									class="icon-trash-o"></span> 删除</a>
 							</div></td>
 					</tr>
+				</tbody>
+				<tfoot>
 					<tr>
 						<td colspan="6"><div class="pagelist">
 								<a href="">上一页</a> <span class="current">1</span><a href="">2</a><a
 									href="">3</a><a href="">下一页</a><a href="">尾页</a>
 							</div></td>
 					</tr>
-				</table>
-			</div>
-		</form>
+				</tfoot>
+			</table>
+		</div>
+	</form>
 </body>
 </html>

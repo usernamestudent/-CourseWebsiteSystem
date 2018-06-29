@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
+import java.sql.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import annotations.Column;
 import dao.ObjectDao;
 import entity.Article;
 import entity.Course;
@@ -99,17 +101,24 @@ public class ObjectUpdateServlet extends HttpServlet {
 		Class<?> clz = obj.getClass();
 		Field[] fields = clz.getDeclaredFields();
 		for(Field field: fields) {
-			String name = field.getName();
+			Column column = field.getAnnotation(Column.class);
+			String name = column.name();
 			if(hashMap.get(name) != null) {
 				try {
 					field.setAccessible(true);
-					field.set(obj, hashMap.get(name));
-				} catch (IllegalArgumentException | IllegalAccessException e) {
+					String value = hashMap.get(name);
+					if(column.type() == "Date") {
+						field.set(obj, Date.valueOf(value));
+					}else if(column.type() == "Integer") {
+						field.set(obj, Integer.valueOf(value));
+					}else {
+						field.set(obj, value);
+					}
+				} catch (IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
 		}
-		
 		return ObjectDao.update(obj2, obj);
 	}
 

@@ -7,7 +7,7 @@ import annotations.Table;
 
 @Table(name="course", Name="课程")
 public class Course {
-	@Column(isId=true, name="id", ChineseName="课程Id")
+	@Column(isId=true, name="id", ChineseName="课程Id", type="Integer")
 	private Integer id;
 	@Column(name="name", ChineseName="课程名")
 	private String name;
@@ -17,7 +17,7 @@ public class Course {
 	private String image;
 	@Column(name="video", ChineseName="课程视频")
 	private String video;
-	@Column(name="create_time", ChineseName="创建时间")
+	@Column(name="create_time", ChineseName="创建时间", type="Date")
 	private Date createTime;
 	public Integer getId() {
 		return id;
