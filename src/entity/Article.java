@@ -7,8 +7,8 @@ import annotations.Table;
 
 @Table(name="article", Name="文章")
 public class Article {
-	@Column(isId=true, name="article_id", ChineseName="文章号")
-	private Integer articleId;
+	@Column(isId=true, name="id", ChineseName="文章号")
+	private Integer id;
 	@Column(name="title", ChineseName="标题")
 	private String title;
 	@Column(name="author", ChineseName="作者")
@@ -20,14 +20,14 @@ public class Article {
 	@Column(name="isPass", ChineseName="状态")
 	private Integer isPass;//0表示false, 1表示true
 
-	public Integer getArticleId() {
-		return articleId;
+	public Integer getId() {
+		return id;
 	}
-	public void setArticleId(String articleId) {
-		if(articleId != null) {
-			this.articleId = Integer.valueOf(articleId);
+	public void setId(String id) {
+		if(id != null) {
+			this.id = Integer.valueOf(id);
 		}else {
-			this.articleId = null;
+			this.id = null;
 		}
 	}
 	public String getTitle() {

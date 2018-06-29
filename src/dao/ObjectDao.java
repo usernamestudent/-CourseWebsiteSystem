@@ -37,7 +37,6 @@ public class ObjectDao {
 			}
 		}
 		sql = sql + area.toString() + ")values(" + value.toString() + ")";
-		System.out.println(sql);
 		return DBUtil.executeUpdate(sql, object, fields);
 	}
 
@@ -86,7 +85,6 @@ public class ObjectDao {
 				for (int i = 0; i < list.size(); i++) {
 					preparedStatement.setObject(i + 1, list.get(i));
 				}
-				System.out.println(preparedStatement.toString());
 				resultSet = preparedStatement.executeQuery();
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -98,7 +96,6 @@ public class ObjectDao {
 				e.printStackTrace();
 			} 
 		}
-		System.out.println(sql);
 		JSONArray result = new JSONArray();
 		try {
 			while(resultSet.next()) {
