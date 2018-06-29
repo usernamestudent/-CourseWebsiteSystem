@@ -5,11 +5,11 @@ import annotations.Table;
 
 @Table(name="part", Name="으커")
 public class Part {
-	@Column(isId=true, name="id", ChineseName="으커Id")
+	@Column(isId=true, name="id", ChineseName="으커Id", type="Integer")
 	private Integer id;
 	@Column(name="column_name", ChineseName="으커츰")
 	private String columnName;
-	@Column(name="father_id", ChineseName="만으커")
+	@Column(name="father_id", ChineseName="만으커", type="Integer")
 	private Integer fatherId;
 	public Integer getId() {
 		return id;

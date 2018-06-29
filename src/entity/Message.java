@@ -7,7 +7,7 @@ import annotations.Table;
 
 @Table(name="message", Name="¡Ù—‘")
 public class Message {
-	@Column(isId=true, name="id", ChineseName="¡Ù—‘Id")
+	@Column(isId=true, name="id", ChineseName="¡Ù—‘Id", type = "Integer")
 	private Integer id;
 	@Column(name="name", ChineseName="–’√˚")
 	private String name;
@@ -15,7 +15,7 @@ public class Message {
 	private String phone;
 	@Column(name="email", ChineseName="” œ‰")
 	private String email;
-	@Column(name="time", ChineseName="¡Ù—‘ ±º‰")
+	@Column(name="time", ChineseName="¡Ù—‘ ±º‰", type="Date")
 	private Date time;
 	@Column(name="note", ChineseName="±∏◊¢")
 	private String note;

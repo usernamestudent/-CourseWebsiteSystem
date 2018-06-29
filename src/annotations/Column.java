@@ -12,4 +12,5 @@ public @interface Column {
 	public boolean isId() default false;
 	public String name();
 	public String ChineseName()default "";
+	public String type() default "String";
 }
