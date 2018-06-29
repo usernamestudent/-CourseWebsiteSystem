@@ -103,9 +103,15 @@ public class ObjectDao {
 				Field[] resultField = obj.getClass().getDeclaredFields();
 				JSONObject jsonObject = new JSONObject();
 				for (Field field : resultField) {
+					Column column = field.getAnnotation(Column.class);
+					String name = column.name();
 					field.setAccessible(true);
-					String value = resultSet.getString(field.getName());
-				    jsonObject.put(field.getName(), value.toString());
+					String value = resultSet.getString(name);
+					if (value == null) {
+						jsonObject.put(field.getName(), "");
+					} else {
+						jsonObject.put(field.getName(), value.toString());
+					}
 				}
 				result.put(jsonObject);
 			}

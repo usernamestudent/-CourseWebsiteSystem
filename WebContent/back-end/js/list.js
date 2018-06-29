@@ -4,6 +4,41 @@
 window.onload = function() {
 	var htmlobj=$.ajax({url:"articleShow.html",async:false});
 	$("#myDiv").html(htmlobj.responseText);
+	
+	//展示文章
+	$.ajax({
+		type:"post",
+		url:"../../ObjectServlet?method=article",
+		async:true,
+		data:{
+			"type":"select",
+		},
+		success:function(data){
+			var arry = JSON.parse(data);
+			var flag = document.createDocumentFragment();
+			for (var i = 0; i < arry.length; i++) {
+				var tr = document.createElement("tr"); 
+				var str = "";
+				str += '<td style="text-align: left; padding-left: 20px;"><input type="checkbox" name="id" value="'+ arry[i].id + '" /></td>';
+				str += '<td>' + arry[i].title + '</td>';
+				str += '<td>' + arry[i].author + '</td>';
+				str += '<td>' + arry[i].columnName + '</td>';
+				str += '<td>' + arry[i].createTime + '</td>';
+				str += '<td><div class="button-group"><a class="button border-green"'; 
+				str +=	' onclick="view('+ arry[i] +')"><span class="icon-search"></span> 查看</a>';
+				str += '<a class="button border-main"';
+				str += ' onclick="modify('+ arry[i] +')"><span class="icon-edit"></span> 修改</a>'
+				str += '<a class="button border-red"'; 
+				str +=	' onclick="del(this, '+ arry[i].id +')"><span class="icon-trash-o"></span> 删除</a></div></td>';
+				tr.innerHTML = str;
+				flag.appendChild(tr);
+			}
+			document.getElementById("tbody").appendChild(flag);
+		},
+		error:function(data){
+			alert("添加成功");
+		}
+	})
 }
 //增加内容		
 function add() {
@@ -48,6 +83,10 @@ function addArticle() {
 		})
 	}
 
+}
+
+function modify(id) {
+	
 }
 
 //搜索
