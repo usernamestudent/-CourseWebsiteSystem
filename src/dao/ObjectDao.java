@@ -142,31 +142,4 @@ public class ObjectDao {
 		}
 		return list;
 	}
-//
-//	public static void displayInfo(ArrayList<Object> list) {
-//		for(int i = 0; i < list.size(); i++) {
-//			Object object = list.get(i);
-//
-//			Field[] fields = object.getClass().getDeclaredFields();
-//			for (Field field:fields) {
-//				field.setAccessible(true);
-//				try {	
-//					StringBuffer str = new StringBuffer();
-//					str.append(field.get(object));
-//					if (field.getType().equals(Integer.class))
-//						System.out.printf("%-5d", field.get(object));
-//					else if ((field.getType().equals(Float.class)))
-//						System.out.printf("%-5.2f ", field.get(object));
-//					else 
-//						System.out.printf("%-15s",str.toString());
-//
-//				} catch (IllegalArgumentException | IllegalAccessException e) {
-//					e.printStackTrace();
-//				} 
-//			}
-//			System.out.println();
-//		}
-//		System.out.println();
-//	}
-
 }
