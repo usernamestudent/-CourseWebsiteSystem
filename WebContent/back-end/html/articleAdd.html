@@ -7,6 +7,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <meta name="renderer" content="webkit">
 <title>后台管理中心</title>
+<script src="../js/pintuer.js"></script>
 </head>
 <body>
 	<div class="panel admin-panel">
@@ -30,12 +31,13 @@
 						<label>栏目名称：</label>
 					</div>
 					<div class="field">
-						<select id="column" class="input w50">
-							<option value="1">请选择分类</option>
-							<option value="2">产品分类</option>
-							<option value="3">产品分类</option>
-							<option value="4">产品分类</option>
-							<option value="5">产品分类</option>
+						<select id="column" class="input w50"
+							data-validate="required:请输入栏目名称">
+							<option value="">请选择分类</option>
+							<option value="产品分类">产品分类</option>
+							<option value="产品分类">产品分类</option>
+							<option value="产品分类">产品分类</option>
+							<option value="产品分类">产品分类</option>
 						</select>
 						<div class="tips"></div>
 					</div>
@@ -101,9 +103,9 @@
 					</div>
 					<div class="field">
 						<button class="button bg-main icon-check" type="submit"
-							onclick="addArticle()">提交</button>
-						<button class="button bg-sub icon-undo" type="button" onclick="back()">
-							返回</button>
+							id="submit">提交</button>
+						<button class="button bg-sub icon-undo" type="button"
+							onclick="back()">返回</button>
 					</div>
 				</div>
 			</form>
