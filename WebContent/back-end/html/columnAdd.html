@@ -11,7 +11,7 @@
 				</div>
 				<div class="field">
 					<input type="text" class="input w50" name="title" value=""
-						data-validate="required:请输入标题" />
+						data-validate="required:请输入栏目名称"  id="column"/>
 					<div class="tips"></div>
 				</div>
 			</div>
@@ -20,12 +20,12 @@
 					<label>父栏目：</label>
 				</div>
 				<div class="field">
-					<select id="column" class="input w50">
-						<option value="">请选择分类</option>
-						<option value="">产品分类</option>
-						<option value="">产品分类</option>
-						<option value="">产品分类</option>
-						<option value="">产品分类</option>
+					<select id="fatherId" class="input w50">
+						<option value="1">请选择分类</option>
+						<option value="2">产品分类</option>
+						<option value="3">产品分类</option>
+						<option value="4">产品分类</option>
+						<option value="5">产品分类</option>
 					</select>
 					<div class="tips"></div>
 				</div>
@@ -35,7 +35,7 @@
 					<label></label>
 				</div>
 				<div class="field">
-					<button class="button bg-main icon-check" type="submit">
+					<button class="button bg-main icon-check" type="submit" onclick="addColumn()">
 						提交</button>
 					<button class="button bg-sub icon-undo" type="button"
 						onclick="back()">返回</button>

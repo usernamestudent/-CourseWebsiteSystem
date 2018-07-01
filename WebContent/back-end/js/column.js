@@ -6,9 +6,23 @@ window.onload = function() {
 	 $("#myDiv").html(htmlobj.responseText);
 	 showColumn();
 }
-function del(id){
+function del(row, id){
 	if(confirm("您确定要删除吗?")){
-		
+		$.ajax({
+			type:"post",
+			url:"../../ObjectServlet?method=part",
+			async:true,
+			data:{
+				"type":"delete",
+				"id": id
+			},
+			success:function(data){
+				$(row).parent().parent().parent().remove();
+			},
+			error:function(data){
+
+			}
+		})
 	}
 }
 //全选
@@ -78,4 +92,27 @@ function showColumn(){
 
 		}
 	})
+}
+
+function addColumn(){
+	var column = $("#column").val();
+	var fatherId = $('#fatherId option:selected').val();
+	if(column != "" && fatherId != ""){
+		$.ajax({
+			type:"post",
+			url:"../../ObjectServlet?method=part",
+			async:true,
+			data:{
+				"type":"add",
+				"column_name":column,
+				"father_id":fatherId,
+			},
+			success:function(data){
+				alert("添加成功");
+			},
+			error:function(data){
+				alert("添加成功");
+			}
+		})
+	}
 }

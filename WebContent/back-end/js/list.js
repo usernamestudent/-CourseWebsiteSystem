@@ -106,8 +106,8 @@ function modify(i) {
 	$("#submit").on("click", function() {
 		update(id)
 	})
-	
-	
+
+
 }
 
 function update(id) {
@@ -159,7 +159,7 @@ function view(i) {
 	$("#s_desc").val(arry[i].s_desc);
 	$("#datetime").val(arry[i].createTime);
 
-	$("input,select,textarea").attr("readOnly", "true");
+	$("input,select,textarea").attr("disabled", "true");
 	$("input,select,textarea").css("background","white");
 	$("input,select,textarea").css("border","none");
 	$("#submit").hide();
@@ -167,7 +167,7 @@ function view(i) {
 
 //搜索
 function changesearch() {
-	
+
 }
 
 //单个删除
@@ -183,9 +183,10 @@ function del(row, id) {
 			},
 			success:function(data){
 				$(row).parent().parent().parent().remove();
+				alert("删除成功");
 			},
 			error:function(data){
-
+				alert("删除失败");
 			}
 		})
 	}
@@ -193,13 +194,15 @@ function del(row, id) {
 
 //全选
 function checkAll() {
-	$("input[name='id']").each(function() {
-		if (this.checked) {
-			this.checked = false;
-		} else {
+	if($('#checkall').is(':checked')){
+		$("input[name='id']").each(function() {
 			this.checked = true;
-		}
-	});
+		});
+	}else{
+		$("input[name='id']").each(function() {
+			this.checked = false;
+		});
+	}
 }
 
 function judgeAll(){
@@ -209,7 +212,7 @@ function judgeAll(){
 			falg = false;
 		}
 	});
-	
+
 	if(falg){
 		$("#checkall").prop("checked", falg);
 	}else{
@@ -220,65 +223,40 @@ function judgeAll(){
 
 //批量删除
 function DelSelect() {
-	var Checkbox = false;
+	var index = 0;
+	var WnoArray = [];
+	var rowArray = [];
 	$("input[name='id']").each(function() {
-		if (this.checked == true) {
-			Checkbox = true;
+		if(this.checked == true){
+			WnoArray.push(this.value);
+			rowArray.push(index);
 		}
+		index++;
 	});
-	if (Checkbox) {
-		var t = confirm("您确认要删除选中的内容吗？");
-		if (t == false)
-			return false;
-		$("#listform").submit();
+	if (WnoArray.length == 0) {
+		alert("选择你需要删除的项");
 	} else {
-		alert("请选择您要删除的内容!");
-		return false;
+		if (confirm("您确定要删除吗?")) {
+			$.ajax({
+				url:"../../ObjectdeleteServlet?method=article",
+				type: "post",
+				data:{
+					id: ""+WnoArray,
+				},
+				success: function() {
+					alert("删除成功");
+					for(var i = 0; i < rowArray.length; i++){
+						document.getElementById('tbody').deleteRow(rowArray[i] - i);
+					}
+					$("#checkall").prop("checked", false);
+				},
+			});
+		}
 	}
-}
-
+} 
 
 function back() {
 	display();
-}
-
-function update(id){
-	var title = $("#title").val();
-	var column = $('#column option:selected').val();
-	var note = $("#note").val();
-	var content = $("#content").val();
-	var s_title = $("#s_title").val();
-	var s_keywords = $("#s_keywords").val();
-	var s_desc = $("#s_desc").val();
-	var date = $("#datetime").val();
-	var data = JSON.parse(sessionStorage.getItem('key'));
-	var author = data[0].name;	
-	if(column != null || data != null || author != null){
-		$.ajax({
-			type:"post",
-			url:"../../ObjectServlet?method=article",
-			async:true,
-			data:{
-			 	"type":"add",
-			 	"id":id,
-			 	"title":title,
-			 	"author":author,
-			 	"column_name":column,
-			 	"create_time":date,
-			 	"s_title":s_title,
-			 	"s_keywords":s_keywords,
-			 	"s_desc":s_desc,
-			 	"note":note,
-			 	"content":content,
-			},
-			success:function(data){
-			 	alert("修改成功");
-			},
-			error:function(data){
-				alert("添加成功");
-			}
-		})
-	}
 }
 
 function deleteAll(){
@@ -294,7 +272,7 @@ function judgeAll(){
 			falg = false;
 		}
 	});
-	
+
 	if(falg){
 		$("#checkall").prop("checked", falg);
 	}else{

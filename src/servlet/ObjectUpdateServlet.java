@@ -18,6 +18,7 @@ import dao.ObjectDao;
 import entity.Article;
 import entity.Course;
 import entity.CourseGroup;
+import entity.Message;
 import entity.Part;
 import entity.User;
 
@@ -72,6 +73,11 @@ public class ObjectUpdateServlet extends HttpServlet {
 			User oldUser = new User();
 			oldUser.setId(id);
 			falg = update(new User(), oldUser, hashMap);
+			break;
+		case "message":
+			Message oldMessage = new Message();
+			oldMessage.setId(id);
+			falg = update(new User(), oldMessage, hashMap);
 			break;
 		}
 		
