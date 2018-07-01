@@ -173,7 +173,6 @@ function view(i) {
 	$("#submit").hide();
 }
 
-
 //单个删除
 function del(row, id) {
 	if (confirm("您确定要删除吗?")) {
@@ -187,30 +186,45 @@ function del(row, id) {
 			},
 			success:function(data){
 				$(row).parent().parent().parent().remove();
+				alert("删除成功");
 			},
 			error:function(data){
-
+				alert("删除失败");
 			}
 		})
 	}
 }
 
-
 //批量删除
 function DelSelect() {
-	var Checkbox = false;
+	var index = 0;
+	var WnoArray = [];
+	var rowArray = [];
 	$("input[name='id']").each(function() {
-		if (this.checked == true) {
-			Checkbox = true;
+		if(this.checked == true){
+			WnoArray.push(this.value);
+			rowArray.push(index);
 		}
+		index++;
 	});
-	if (Checkbox) {
-		var t = confirm("您确认要删除选中的内容吗？");
-		if (t == false)
-			return false;
-		$("#listform").submit();
+	if (WnoArray.length == 0) {
+		alert("选择你需要删除的项");
 	} else {
-		alert("请选择您要删除的内容!");
-		return false;
+		if (confirm("您确定要删除吗?")) {
+			$.ajax({
+				url:"../../ObjectdeleteServlet?method=article",
+				type: "post",
+				data:{
+					id: ""+WnoArray,
+				},
+				success: function() {
+					alert("删除成功");
+					for(var i = 0; i < rowArray.length; i++){
+						document.getElementById('tbody').deleteRow(rowArray[i] - i);
+					}
+					$("#checkall").prop("checked", false);
+				},
+			});
+		}
 	}
-}
+} 

@@ -15,7 +15,7 @@ function allMessage(){
 			for (var i = 0; i < arry.length; i++) {
 				var tr = document.createElement("tr"); 
 				var str = "";
-				str += '<td><input type="checkbox" name="id" value="'+ arry[i].id + '" /></td>';
+				str += '<td><input type="checkbox" name="id" onclick="judgeAll()" value="'+ arry[i].id + '" /></td>';
 				str += '<td>' + arry[i].name + '</td>';
 				str += '<td>' + arry[i].phone + '</td>';
 				str += '<td>' + arry[i].email + '</td>';
@@ -55,15 +55,20 @@ function del(row,id) {
 	}
 }
 
-$("#checkall").click(function() {
+function judgeAll(){
+	var falg = true;
 	$("input[name='id']").each(function() {
-		if (this.checked) {
-			this.checked = false;
-		} else {
-			this.checked = true;
+		if(this.checked == false){
+			falg = false;
 		}
 	});
-})
+
+	if(falg){
+		$("#checkall").prop("checked", falg);
+	}else{
+		$("#checkall").prop("checked", falg);
+	}
+}
 
 function DelSelect() {
 	var Checkbox = false;
@@ -81,3 +86,48 @@ function DelSelect() {
 		return false;
 	}
 }
+
+function checkAll() {
+	if($('#checkall').is(':checked')){
+		$("input[name='id']").each(function() {
+			this.checked = true;
+		});
+	}else{
+		$("input[name='id']").each(function() {
+			this.checked = false;
+		});
+	}
+}
+
+function DelSelect() {
+	var index = 0;
+	var WnoArray = [];
+	var rowArray = [];
+	$("input[name='id']").each(function() {
+		if(this.checked == true){
+			WnoArray.push(this.value);
+			rowArray.push(index);
+		}
+		index++;
+	});
+	if (WnoArray.length == 0) {
+		alert("选择你需要删除的项");
+	} else {
+		if (confirm("您确定要删除吗?")) {
+			$.ajax({
+				url:"../../ObjectdeleteServlet?method=message",
+				type: "post",
+				data:{
+					id: ""+WnoArray,
+				},
+				success: function() {
+					alert("删除成功");
+					for(var i = 0; i < rowArray.length; i++){
+						document.getElementById('tbody').deleteRow(rowArray[i] - i);
+					}
+					$("#checkall").prop("checked", false);
+				},
+			});
+		}
+	}
+} 

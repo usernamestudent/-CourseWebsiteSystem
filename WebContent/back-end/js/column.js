@@ -4,51 +4,6 @@ function display() {
 	 showColumn();
 }
 
-//全选
-function checkAll() {
-	$("input[name='id']").each(function() {
-		if (this.checked) {
-			this.checked = false;
-		} else {
-			this.checked = true;
-		}
-	});
-}
-
-function judgeAll(){
-	var falg = true;
-	$("input[name='id']").each(function() {
-		if(this.checked == false){
-			falg = false;
-		}
-	});
-
-	if(falg){
-		$("#checkall").prop("checked", falg);
-	}else{
-		$("#checkall").prop("checked", falg);
-	}
-}
-
-//批量删除
-function DelSelect() {
-	var Checkbox = false;
-	$("input[name='id']").each(function() {
-		if (this.checked == true) {
-			Checkbox = true;
-		}
-	});
-	if (Checkbox) {
-		var t = confirm("您确认要删除选中的内容吗？");
-		if (t == false)
-			return false;
-		$("#listform").submit();
-	} else {
-		alert("请选择您要删除的内容!");
-		return false;
-	}
-}
-
 function addHtml() {
 	var htmlobj=$.ajax({url:"columnAdd.html",async:false});
 	 $("#myDiv").html(htmlobj.responseText);
@@ -91,19 +46,18 @@ function showColumn(){
 	})
 }
 
-function addColumn() {
-	var title = $("#title").val();
-	var column = $('#column option:selected').val();
-	
-	if(title != "" && column != ""){
+function addColumn(){
+	var column = $("#column").val();
+	var fatherId = $('#fatherId option:selected').val();
+	if(column != "" && fatherId != ""){
 		$.ajax({
 			type:"post",
 			url:"../../ObjectServlet?method=part",
 			async:true,
 			data:{
 				"type":"add",
-				"title":title,
 				"column_name":column,
+				"father_id":fatherId,
 			},
 			success:function(data){
 				alert("添加成功");
