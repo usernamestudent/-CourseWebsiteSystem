@@ -106,10 +106,12 @@ public class ObjectDao {
 					Column column = field.getAnnotation(Column.class);
 					String name = column.name();
 					field.setAccessible(true);
+					Column column = field.getAnnotation(Column.class);
+					String name = column.name();
 					String value = resultSet.getString(name);
-					if (value == null) {
+					if(value == null) {
 						jsonObject.put(field.getName(), "");
-					} else {
+					}else {
 						jsonObject.put(field.getName(), value.toString());
 					}
 				}

@@ -65,14 +65,10 @@ function showColumn(){
 				var tr = document.createElement("tr"); 
 				var str = "";
 				str += '<td><input type="checkbox" name="id" value="'+ arry[i].id + '" /></td>';
-//				str += '<td>' + arry[i].name + '</td>';
-//				str += '<td>' + arry[i].phone + '</td>';
-//				str += '<td>' + arry[i].email + '</td>';
-//				str += '<td>' + arry[i].note + '</td>';
-//				str += '<td>' + arry[i].content + '</td>';
-//				str += '<td>' + arry[i].time + '</td>';
-//				str += '<td><div class="button-group"><a class="button border-red" href="javascript:void(0)"'; 
-//				str +=	' onclick="del(this, '+ arry[i].id +')"><span class="icon-trash-o"></span>删除</a></div></td>';
+				str += '<td>' + arry[i].columnName + '</td>';
+				str += '<td>' + arry[i].fatherId + '</td>';
+				str += '<td><div class="button-group"><a class="button border-red" href="javascript:void(0)"'; 
+				str +=	' onclick="del(this, '+ arry[i].id +')"><span class="icon-trash-o"></span>删除</a></div></td>';
 				tr.innerHTML = str;
 				flag.appendChild(tr);
 			}

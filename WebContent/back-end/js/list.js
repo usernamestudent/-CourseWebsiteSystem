@@ -46,7 +46,6 @@ function display() {
 function add() {
 	var htmlobj=$.ajax({url:"articleAdd.html",async:false});
 	$("#myDiv").html(htmlobj.responseText);
-	
 	$("#submit").on("click", function() {
 		addArticle();
 	})
@@ -241,4 +240,64 @@ function DelSelect() {
 
 function back() {
 	display();
+}
+
+function update(id){
+	var title = $("#title").val();
+	var column = $('#column option:selected').val();
+	var note = $("#note").val();
+	var content = $("#content").val();
+	var s_title = $("#s_title").val();
+	var s_keywords = $("#s_keywords").val();
+	var s_desc = $("#s_desc").val();
+	var date = $("#datetime").val();
+	var data = JSON.parse(sessionStorage.getItem('key'));
+	var author = data[0].name;	
+	if(column != null || data != null || author != null){
+		$.ajax({
+			type:"post",
+			url:"../../ObjectServlet?method=article",
+			async:true,
+			data:{
+			 	"type":"add",
+			 	"id":id,
+			 	"title":title,
+			 	"author":author,
+			 	"column_name":column,
+			 	"create_time":date,
+			 	"s_title":s_title,
+			 	"s_keywords":s_keywords,
+			 	"s_desc":s_desc,
+			 	"note":note,
+			 	"content":content,
+			},
+			success:function(data){
+			 	alert("修改成功");
+			},
+			error:function(data){
+				alert("添加成功");
+			}
+		})
+	}
+}
+
+function deleteAll(){
+	$("input[name='id']").each(function() {
+		this.checked = true;
+	});
+}
+
+function judgeAll(){
+	var falg = true;
+	$("input[name='id']").each(function() {
+		if(this.checked == false){
+			falg = false;
+		}
+	});
+	
+	if(falg){
+		$("#checkall").prop("checked", falg);
+	}else{
+		$("#checkall").prop("checked", falg);
+	}
 }
