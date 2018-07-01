@@ -10,7 +10,7 @@
 					<label>栏目名称：</label>
 				</div>
 				<div class="field">
-					<input type="text" class="input w50" name="title" value=""
+					<input type="text" class="input w50" id="title" value=""
 						data-validate="required:请输入标题" />
 					<div class="tips"></div>
 				</div>
@@ -35,7 +35,7 @@
 					<label></label>
 				</div>
 				<div class="field">
-					<button class="button bg-main icon-check" type="submit">
+					<button class="button bg-main icon-check" type="submit" onclick="addColumn()">
 						提交</button>
 					<button class="button bg-sub icon-undo" type="button"
 						onclick="back()">返回</button>

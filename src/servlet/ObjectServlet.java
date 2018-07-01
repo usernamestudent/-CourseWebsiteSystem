@@ -123,7 +123,6 @@ public class ObjectServlet extends HttpServlet {
 			break;
 		case "select":
 			JSONArray list = ObjectDao.Select(obj);
-			System.out.println(list);
 			out.append(list.toString());
 			break;
 		}

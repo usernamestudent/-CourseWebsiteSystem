@@ -1,16 +1,9 @@
-/**
- * 
- */
-window.onload = function() {
+function display() {
 	 var htmlobj=$.ajax({url:"columnShow.html",async:false});
 	 $("#myDiv").html(htmlobj.responseText);
 	 showColumn();
 }
-function del(id){
-	if(confirm("您确定要删除吗?")){
-		
-	}
-}
+
 //全选
 function checkAll() {
 	$("input[name='id']").each(function() {
@@ -20,6 +13,21 @@ function checkAll() {
 			this.checked = true;
 		}
 	});
+}
+
+function judgeAll(){
+	var falg = true;
+	$("input[name='id']").each(function() {
+		if(this.checked == false){
+			falg = false;
+		}
+	});
+
+	if(falg){
+		$("#checkall").prop("checked", falg);
+	}else{
+		$("#checkall").prop("checked", falg);
+	}
 }
 
 //批量删除
@@ -47,8 +55,7 @@ function addHtml() {
 }
 
 function back() {
-	var htmlobj=$.ajax({url:"columnShow.html",async:false});
-	 $("#myDiv").html(htmlobj.responseText);
+	display();
 }
 function showColumn(){
 	$.ajax({
@@ -64,9 +71,13 @@ function showColumn(){
 			for (var i = 0; i < arry.length; i++) {
 				var tr = document.createElement("tr"); 
 				var str = "";
-				str += '<td><input type="checkbox" name="id" value="'+ arry[i].id + '" /></td>';
+				str += '<td><input type="checkbox" name="id" onclick="judgeAll()" value="'+ arry[i].id + '" /></td>';
 				str += '<td>' + arry[i].columnName + '</td>';
-				str += '<td>' + arry[i].fatherId + '</td>';
+				if (arry[i].fatherId == "") {
+					str += '<td>无</td>';
+				} else {
+					str += '<td>' + arry[i].fatherId + '</td>';
+				}
 				str += '<td><div class="button-group"><a class="button border-red" href="javascript:void(0)"'; 
 				str +=	' onclick="del(this, '+ arry[i].id +')"><span class="icon-trash-o"></span>删除</a></div></td>';
 				tr.innerHTML = str;
@@ -78,4 +89,50 @@ function showColumn(){
 
 		}
 	})
+}
+
+function addColumn() {
+	var title = $("#title").val();
+	var column = $('#column option:selected').val();
+	
+	if(title != "" && column != ""){
+		$.ajax({
+			type:"post",
+			url:"../../ObjectServlet?method=part",
+			async:true,
+			data:{
+				"type":"add",
+				"title":title,
+				"column_name":column,
+			},
+			success:function(data){
+				alert("添加成功");
+			},
+			error:function(data){
+				alert("添加成功");
+			}
+		})
+	}
+}
+
+
+//单个删除
+function del(row, id) {
+	if (confirm("您确定要删除吗?")) {
+		$.ajax({
+			type:"post",
+			url:"../../ObjectServlet?method=part",
+			async:true,
+			data:{
+				"type":"delete",
+				"id": id
+			},
+			success:function(data){
+				$(row).parent().parent().parent().remove();
+			},
+			error:function(data){
+
+			}
+		})
+	}
 }

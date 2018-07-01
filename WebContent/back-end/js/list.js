@@ -36,6 +36,9 @@ function display() {
 				flag.appendChild(tr);
 			}
 			document.getElementById("tbody").appendChild(flag);
+			
+			//分页
+			exhibition();
 		},
 		error:function(data){
 			alert("添加成功");
@@ -49,6 +52,11 @@ function add() {
 	$("#submit").on("click", function() {
 		addArticle();
 	})
+}
+
+//返回
+function back() {
+	display();
 }
 
 function addArticle() {
@@ -104,10 +112,10 @@ function modify(i) {
 	$("#datetime").val(arry[i].createTime);
 	var id = arry[i].id;
 	$("#submit").on("click", function() {
-		update(id)
+		update(id);
 	})
-	
-	
+
+
 }
 
 function update(id) {
@@ -159,16 +167,12 @@ function view(i) {
 	$("#s_desc").val(arry[i].s_desc);
 	$("#datetime").val(arry[i].createTime);
 
-	$("input,select,textarea").attr("readOnly", "true");
+	$("input,select,textarea").attr("disabled", "true");
 	$("input,select,textarea").css("background","white");
 	$("input,select,textarea").css("border","none");
 	$("#submit").hide();
 }
 
-//搜索
-function changesearch() {
-	
-}
 
 //单个删除
 function del(row, id) {
@@ -191,32 +195,6 @@ function del(row, id) {
 	}
 }
 
-//全选
-function checkAll() {
-	$("input[name='id']").each(function() {
-		if (this.checked) {
-			this.checked = false;
-		} else {
-			this.checked = true;
-		}
-	});
-}
-
-function judgeAll(){
-	var falg = true;
-	$("input[name='id']").each(function() {
-		if(this.checked == false){
-			falg = false;
-		}
-	});
-	
-	if(falg){
-		$("#checkall").prop("checked", falg);
-	}else{
-		$("#checkall").prop("checked", falg);
-	}
-}
-
 
 //批量删除
 function DelSelect() {
@@ -234,70 +212,5 @@ function DelSelect() {
 	} else {
 		alert("请选择您要删除的内容!");
 		return false;
-	}
-}
-
-
-function back() {
-	display();
-}
-
-function update(id){
-	var title = $("#title").val();
-	var column = $('#column option:selected').val();
-	var note = $("#note").val();
-	var content = $("#content").val();
-	var s_title = $("#s_title").val();
-	var s_keywords = $("#s_keywords").val();
-	var s_desc = $("#s_desc").val();
-	var date = $("#datetime").val();
-	var data = JSON.parse(sessionStorage.getItem('key'));
-	var author = data[0].name;	
-	if(column != null || data != null || author != null){
-		$.ajax({
-			type:"post",
-			url:"../../ObjectServlet?method=article",
-			async:true,
-			data:{
-			 	"type":"add",
-			 	"id":id,
-			 	"title":title,
-			 	"author":author,
-			 	"column_name":column,
-			 	"create_time":date,
-			 	"s_title":s_title,
-			 	"s_keywords":s_keywords,
-			 	"s_desc":s_desc,
-			 	"note":note,
-			 	"content":content,
-			},
-			success:function(data){
-			 	alert("修改成功");
-			},
-			error:function(data){
-				alert("添加成功");
-			}
-		})
-	}
-}
-
-function deleteAll(){
-	$("input[name='id']").each(function() {
-		this.checked = true;
-	});
-}
-
-function judgeAll(){
-	var falg = true;
-	$("input[name='id']").each(function() {
-		if(this.checked == false){
-			falg = false;
-		}
-	});
-	
-	if(falg){
-		$("#checkall").prop("checked", falg);
-	}else{
-		$("#checkall").prop("checked", falg);
 	}
 }
