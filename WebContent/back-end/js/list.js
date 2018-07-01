@@ -36,6 +36,9 @@ function display() {
 				flag.appendChild(tr);
 			}
 			document.getElementById("tbody").appendChild(flag);
+			
+			//分页
+			exhibition();
 		},
 		error:function(data){
 			alert("添加成功");
@@ -49,6 +52,11 @@ function add() {
 	$("#submit").on("click", function() {
 		addArticle();
 	})
+}
+
+//返回
+function back() {
+	display();
 }
 
 function addArticle() {
@@ -104,7 +112,7 @@ function modify(i) {
 	$("#datetime").val(arry[i].createTime);
 	var id = arry[i].id;
 	$("#submit").on("click", function() {
-		update(id)
+		update(id);
 	})
 
 
@@ -165,11 +173,6 @@ function view(i) {
 	$("#submit").hide();
 }
 
-//搜索
-function changesearch() {
-
-}
-
 //单个删除
 function del(row, id) {
 	if (confirm("您确定要删除吗?")) {
@@ -191,35 +194,6 @@ function del(row, id) {
 		})
 	}
 }
-
-//全选
-function checkAll() {
-	if($('#checkall').is(':checked')){
-		$("input[name='id']").each(function() {
-			this.checked = true;
-		});
-	}else{
-		$("input[name='id']").each(function() {
-			this.checked = false;
-		});
-	}
-}
-
-function judgeAll(){
-	var falg = true;
-	$("input[name='id']").each(function() {
-		if(this.checked == false){
-			falg = false;
-		}
-	});
-
-	if(falg){
-		$("#checkall").prop("checked", falg);
-	}else{
-		$("#checkall").prop("checked", falg);
-	}
-}
-
 
 //批量删除
 function DelSelect() {
@@ -254,28 +228,3 @@ function DelSelect() {
 		}
 	}
 } 
-
-function back() {
-	display();
-}
-
-function deleteAll(){
-	$("input[name='id']").each(function() {
-		this.checked = true;
-	});
-}
-
-function judgeAll(){
-	var falg = true;
-	$("input[name='id']").each(function() {
-		if(this.checked == false){
-			falg = false;
-		}
-	});
-
-	if(falg){
-		$("#checkall").prop("checked", falg);
-	}else{
-		$("#checkall").prop("checked", falg);
-	}
-}

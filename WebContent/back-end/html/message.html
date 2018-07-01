@@ -12,6 +12,7 @@
 <script src="../js/jquery.js"></script>
 <script src="../js/pintuer.js"></script>
 <script src="../js/message.js"></script>
+<script src="../js/public.js"></script>
 </head>
 <body onload="allMessage()">
 	<form method="post" action="">
@@ -45,10 +46,14 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="8"><div class="pagelist">
-								<a href="">上一页</a> <span class="current">1</span><a href="">2</a><a
-									href="">3</a><a href="">下一页</a><a href="">尾页</a>
+						<td colspan="5"><div class="pagelist">
+								<a onclick="previous()">上一页</a> <span class="current" id="page"></span>
+								<a onclick="next()">下一页</a> （每页显示<input type="number"
+									style="width: 50px" id="pageSize" value=5
+									onchange="changeSize()">条)
+
 							</div></td>
+						<td><span class="tile" id="data"></span></td>
 					</tr>
 				</tfoot>
 			</table>
