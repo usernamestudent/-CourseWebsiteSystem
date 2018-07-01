@@ -107,9 +107,9 @@ public class ObjectUpdateServlet extends HttpServlet {
 				try {
 					field.setAccessible(true);
 					String value = hashMap.get(name);
-					if(column.type() == "Date") {
+					if(column.type().equals("Date")) {
 						field.set(obj, Date.valueOf(value));
-					}else if(column.type() == "Integer") {
+					}else if(column.type().equals("Integer")) {
 						field.set(obj, Integer.valueOf(value));
 					}else {
 						field.set(obj, value);

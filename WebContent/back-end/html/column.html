@@ -11,56 +11,7 @@
 <link rel="stylesheet" href="../css/admin.css">
 <script src="../js/jquery.js"></script>
 <script src="../js/pintuer.js"></script>
-<script>
-window.onload = function() {
-	 var htmlobj=$.ajax({url:"columnShow.html",async:false});
-	 $("#myDiv").html(htmlobj.responseText);
-}
-function del(id){
-	if(confirm("您确定要删除吗?")){
-		
-	}
-}
-//全选
-function checkAll() {
-	$("input[name='id']").each(function() {
-		if (this.checked) {
-			this.checked = false;
-		} else {
-			this.checked = true;
-		}
-	});
-}
-
-//批量删除
-function DelSelect() {
-	var Checkbox = false;
-	$("input[name='id']").each(function() {
-		if (this.checked == true) {
-			Checkbox = true;
-		}
-	});
-	if (Checkbox) {
-		var t = confirm("您确认要删除选中的内容吗？");
-		if (t == false)
-			return false;
-		$("#listform").submit();
-	} else {
-		alert("请选择您要删除的内容!");
-		return false;
-	}
-}
-
-function addHtml() {
-	var htmlobj=$.ajax({url:"columnAdd.html",async:false});
-	 $("#myDiv").html(htmlobj.responseText);
-}
-
-function back() {
-	var htmlobj=$.ajax({url:"columnShow.html",async:false});
-	 $("#myDiv").html(htmlobj.responseText);
-}
-</script>
+<script src="../js/column.js"></script>
 </head>
 <body>
 	<div id="myDiv"></div>
