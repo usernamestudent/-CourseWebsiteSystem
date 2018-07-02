@@ -46,7 +46,7 @@ public class ObjectUpdateServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		HashMap<String, String> hashMap = getHashMap(request);
 		String method = hashMap.get("method");
-		String id = hashMap.get("id");
+		Integer id = Integer.valueOf(hashMap.get("id"));
 		boolean falg = false;
 		switch(method){
 		case "part":
@@ -71,7 +71,7 @@ public class ObjectUpdateServlet extends HttpServlet {
 			break;
 		case "user":
 			User oldUser = new User();
-			oldUser.setId(id);
+			oldUser.setId(String.valueOf(id));
 			falg = update(new User(), oldUser, hashMap);
 			break;
 		case "message":

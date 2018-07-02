@@ -42,32 +42,47 @@ function showArticle(){
 }
 
 function modify(i) {
-	var htmlobj=$.ajax({url:"columnAdd.html",async:false});
-	$("#myDiv").html(htmlobj.responseText);
-	var arry = JSON.parse(all);
-	$("#column").val(arry[i].columnName);
-	$("#fatherColumn").val(arry[i].fatherColumn);
-	var id = arry[i].id;
-	$("#submit").on("click", function() {
-		update(id);
-	})
+	var data = JSON.parse(all);
+	var arry = JSON.stringify(data[i]);
+	sessionStorage.setItem('data', arry);
+	location.href = "../html/articleAuditUpdate.html";
 }
 
-function update(id) {
-	var column = $("#column").val();
-	var fatherColumn = $('#fatherColumn option:selected').val();
-	if(column != "" && fatherColumn != ""){
+function updateShow(){
+	var data = sessionStorage.getItem('data');
+	var user = sessionStorage.getItem('key');
+	var account = JSON.parse(user);
+	var arr = JSON.parse(data);
+	$("#title").val(arr.title);
+	$("#author").val(arr.author);
+	$("#approver").val(account[0].name);
+	$("input").attr("disabled", "true");
+	$("input").css("background","white");
+	$("input").css("border","none");
+}
+
+
+function updateAudit(){
+	var user = sessionStorage.getItem('key');
+	var account = JSON.parse(user);
+	var data = sessionStorage.getItem('data');
+	var isPass = $('#column option:selected').val();
+	var arry = JSON.parse(data);
+	var id = arry.id;
+	var approver = account[0].name;
+	if(isPass != "2"){
 		$.ajax({
 			type:"post",
-			url:"../../ObjectUpdateServlet?method=part",
-			async:true,
+			url:"../../ObjectUpdateServlet?method=article",
+			async:false,
 			data:{
 				"id": id,
-				"column_name":column,
-				"father_column":fatherColumn
+				"approver":approver,
+				"isPass":isPass
 			},
 			success:function(data){
-				alert("修改成功")
+				location.href = "../html/articleAudit.html";
+				sessionStorage.removeItem('data');
 			},
 			error:function(data){
 
@@ -76,56 +91,7 @@ function update(id) {
 	}
 }
 
-//单个删除
-function del(row, id) {
-	if (confirm("您确定要删除吗?")) {
-		$.ajax({
-			type:"post",
-			url:"../../ObjectServlet?method=part",
-			async:true,
-			data:{
-				"type":"delete",
-				"id": id
-			},
-			success:function(data){
-				$(row).parent().parent().parent().remove();
-			},
-			error:function(data){
 
-			}
-		})
-	}
+function up(){
+	location.href = "../html/articleAudit.html";
 }
-
-//批量删除
-function DelSelect() {
-	var index = 0;
-	var WnoArray = [];
-	var rowArray = [];
-	$("input[name='id']").each(function() {
-		if(this.checked == true){
-			WnoArray.push(this.value);
-			rowArray.push(index);
-		}
-		index++;
-	});
-	if (WnoArray.length == 0) {
-		alert("选择你需要删除的项");
-	} else {
-		if (confirm("您确定要删除吗?")) {
-			$.ajax({
-				url:"../../ObjectdeleteServlet?method=part",
-				type: "post",
-				data:{
-					id: ""+WnoArray,
-				},
-				success: function() {
-					for(var i = 0; i < rowArray.length; i++){
-						document.getElementById('tbody').deleteRow(rowArray[i] - i);
-					}
-					$("#checkall").prop("checked", false);
-				},
-			});
-		}
-	}
-} 
