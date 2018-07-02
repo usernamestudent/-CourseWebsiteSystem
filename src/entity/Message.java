@@ -21,15 +21,13 @@ public class Message {
 	private String note;
 	@Column(name="content", ChineseName="ÄÚÈÝ")
 	private String content;
+	@Column(name="reply", ChineseName="»Ø¸´")
+	private String reply;
 	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
-		if(id == null) {
-			this.id = null;
-		}else {
-			this.id = Integer.valueOf(id);
-		}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;

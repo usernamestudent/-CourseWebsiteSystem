@@ -29,15 +29,28 @@ public class Article {
 	private String note;
 	@Column(name="content", ChineseName="ƒ⁄»›")
 	private String content;
+	@Column(name="approver", ChineseName="…Û∫À»À")
+	private String approver;
+	public Integer getIsPass() {
+		return isPass;
+	}
+	public void setIsPass(Integer isPass) {
+		this.isPass = isPass;
+	}
+	public String getApprover() {
+		return approver;
+	}
+	public void setApprover(String approver) {
+		this.approver = approver;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
 	public Integer getId() {
 		return id;
 	}
-	public void setId(String id) {
-		if(id != null) {
-			this.id = Integer.valueOf(id);
-		}else {
-			this.id = null;
-		}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getTitle() {
 		return title;
@@ -60,23 +73,14 @@ public class Article {
 	public Date getCreateTime() {
 		return createTime;
 	}
-	public void setCreateTime(String createTime) {
-		if(createTime != null) {
-			this.createTime = Date.valueOf(createTime);
-		}else {
-			this.createTime = null;
-		}
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 	public Integer isPass() {
 		return isPass;
 	}
-	public void setPass(String isPass) {
-		if(isPass != null) {
-			this.isPass = Integer.valueOf(isPass);
-		}else {
-			this.isPass = null;
-		}
-
+	public void setPass(Integer isPass) {
+		this.isPass = isPass;
 	}
 	public String getS_title() {
 		return s_title;
@@ -104,11 +108,5 @@ public class Article {
 	}
 	public String getContent() {
 		return content;
-	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
 	}
 }

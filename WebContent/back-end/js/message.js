@@ -1,6 +1,8 @@
 /**
  * 
  */
+
+var all = "";
 function allMessage(){
 	$.ajax({
 		type:"post",
@@ -10,6 +12,7 @@ function allMessage(){
 			"type":"select",
 		},
 		success:function(data){
+			all = data;
 			var arry = JSON.parse(data);
 			var flag = document.createDocumentFragment();
 			for (var i = 0; i < arry.length; i++) {
@@ -20,12 +23,15 @@ function allMessage(){
 				str += '<td>' + arry[i].phone + '</td>';
 				str += '<td>' + arry[i].email + '</td>';
 				str += '<td>' + arry[i].note + '</td>';
-				str += '<td>' + arry[i].content + '</td>';
 				str += '<td>' + arry[i].time + '</td>';
-				str += '<td><div class="button-group"><a class="button border-red" href="javascript:void(0)"'; 
+				str += '<td><div class="button-group"><a class="button border-green"'; 
+				str +=	' onclick="view('+ i +')"><span class="icon-search"></span> 查看</a>';
+				str += '<a class="button border-red" href="javascript:void(0)"'; 
 				str +=	' onclick="del(this, '+ arry[i].id +')"><span class="icon-trash-o"></span>删除</a></div></td>';
 				tr.innerHTML = str;
 				flag.appendChild(tr);
+				
+				exhibition();
 			}
 			document.getElementById("tbody").appendChild(flag);
 		},
@@ -131,3 +137,30 @@ function DelSelect() {
 		}
 	}
 } 
+
+function view(i){
+	var data = JSON.parse(all);
+	var arry = JSON.stringify(data[i]);
+	sessionStorage.setItem('data', arry);
+	location.href = "../html/messageShow.html";
+}
+
+function show(){
+	var data = sessionStorage.getItem('data');
+	sessionStorage.removeItem('data');
+	var arr = JSON.parse(data);
+	$("#name").val(arr.name);
+	$("#phone").val(arr.phone);
+	$("#email").val(arr.email);
+	$("#content").val(arr.content);
+	$("#note").val(arr.note);
+	$("#reply").val(arr.reply);
+	$("#time").val(arr.time);
+	$("input,textarea").attr("disabled", "true");
+	$("input,textarea").css("background","white");
+	$("input,textarea").css("border","none");
+}
+
+function back(){
+	location.href = "../html/message.html";
+}

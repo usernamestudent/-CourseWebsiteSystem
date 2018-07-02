@@ -15,12 +15,8 @@ public class Part {
 		return id;
 	}
 
-	public void setId(String id) {
-		if(id != null) {
-			this.id = Integer.valueOf(id);
-		}else {
-			this.id = null;
-		}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getColumnName() {
 		return columnName;
@@ -31,11 +27,7 @@ public class Part {
 	public Integer getFatherId() {
 		return fatherId;
 	}
-	public void setFatherId(String fatherId) {
-		if(fatherId != null) {
-			this.fatherId = Integer.valueOf(fatherId);
-		}else {
-			this.fatherId = null;
-		}
+	public void setFatherId(Integer fatherId) {
+		this.fatherId = fatherId;
 	}
 }
