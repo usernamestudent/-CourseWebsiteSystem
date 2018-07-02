@@ -5,7 +5,6 @@ var all = "";
 function display() {
 	var htmlobj=$.ajax({url:"articleShow.html",async:false});
 	$("#myDiv").html(htmlobj.responseText);
-
 	//展示文章
 	$.ajax({
 		type:"post",
@@ -36,7 +35,7 @@ function display() {
 				flag.appendChild(tr);
 			}
 			document.getElementById("tbody").appendChild(flag);
-			
+
 			//分页
 			exhibition();
 		},
@@ -51,6 +50,34 @@ function add() {
 	$("#myDiv").html(htmlobj.responseText);
 	$("#submit").on("click", function() {
 		addArticle();
+	})
+}
+
+function loadColumn() {
+	$("#column").empty();
+	$.ajax({
+		type:"get",
+		url:"../../ObjectServlet?method=part",
+		async:false,
+		data:{
+			"type":"select",
+		},
+		success:function(data){
+			var arry = JSON.parse(data);
+			var column = document.getElementById("column");
+			var optNode = document.createElement("option");
+			optNode.value = "";
+			optNode.innerText = "请选择分类";
+			column.appendChild(optNode);
+			for (var i = 0; i < arry.length; i++) {
+				var optNode = document.createElement("option");
+				optNode.value = arry[i].columnName;
+				optNode.innerText = arry[i].columnName;
+				column.appendChild(optNode);
+			}
+		},
+		error:function(data){
+		}
 	})
 }
 
@@ -101,8 +128,13 @@ function addArticle() {
 function modify(i) {
 	var htmlobj=$.ajax({url:"articleAdd.html",async:false});
 	$("#myDiv").html(htmlobj.responseText);
+
 	var arry = JSON.parse(all);
 	$("#title").val(arry[i].title);
+	var optNode = document.createElement("option");
+	optNode.value = arry[i].columnName;
+	optNode.innerText = arry[i].columnName;
+	column.appendChild(optNode);
 	$("#column").val(arry[i].columnName);
 	$("#note").val(arry[i].note);
 	$("#content").val(arry[i].content);
@@ -114,8 +146,6 @@ function modify(i) {
 	$("#submit").on("click", function() {
 		update(id);
 	})
-
-
 }
 
 function update(id) {
@@ -159,6 +189,10 @@ function view(i) {
 	$("#myDiv").html(htmlobj.responseText);
 	var arry = JSON.parse(all);
 	$("#title").val(arry[i].title);
+	var optNode = document.createElement("option");
+	optNode.value = arry[i].columnName;
+	optNode.innerText = arry[i].columnName;
+	column.appendChild(optNode);
 	$("#column").val(arry[i].columnName);
 	$("#note").val(arry[i].note);
 	$("#content").val(arry[i].content);
@@ -218,7 +252,6 @@ function DelSelect() {
 					id: ""+WnoArray,
 				},
 				success: function() {
-					alert("删除成功");
 					for(var i = 0; i < rowArray.length; i++){
 						document.getElementById('tbody').deleteRow(rowArray[i] - i);
 					}

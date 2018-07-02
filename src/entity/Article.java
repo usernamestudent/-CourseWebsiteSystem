@@ -5,31 +5,31 @@ import java.sql.Date;
 import annotations.Column;
 import annotations.Table;
 
-@Table(name="article", Name="ÎÄÕÂ")
+@Table(name="article", Name="æ–‡ç« ")
 public class Article {
-	@Column(isId=true, name="id", ChineseName="ÎÄÕÂºÅ", type="Integer")
+	@Column(isId=true, name="id", ChineseName="æ–‡ç« å·", type="Integer")
 	private Integer id;
-	@Column(name="title", ChineseName="±êÌâ")
+	@Column(name="title", ChineseName="æ ‡é¢˜")
 	private String title;
-	@Column(name="author", ChineseName="×÷Õß")
+	@Column(name="author", ChineseName="ä½œè€…")
 	private String author;
-	@Column(name="column_name", ChineseName="À¸Ä¿Ãû³Æ")
+	@Column(name="column_name", ChineseName="æ ç›®åç§°")
 	private String columnName;
-	@Column(name="create_time", ChineseName="´´½¨Ê±¼ä", type="Date")
+	@Column(name="create_time", ChineseName="åˆ›å»ºæ—¶é—´", type="Date")
 	private Date createTime;
-	@Column(name="isPass", ChineseName="×´Ì¬", type="Integer")
-	private Integer isPass;//0±íÊ¾false, 1±íÊ¾true
-	@Column(name="s_title", ChineseName="¹Ø¼ü×Ö±êÌâ")
+	@Column(name="isPass", ChineseName="çŠ¶æ€", type="Integer")
+	private Integer isPass;//0è¡¨ç¤ºfalse, 1è¡¨ç¤ºtrue
+	@Column(name="s_title", ChineseName="å…³é”®å­—æ ‡é¢˜")
 	private String s_title;
-	@Column(name="s_keywords", ChineseName="ÄÚÈİ¹Ø¼ü×Ö")
+	@Column(name="s_keywords", ChineseName="å†…å®¹å…³é”®å­—")
 	private String s_keywords;
-	@Column(name="s_desc", ChineseName="¹Ø¼ü×ÖÃèÊö")
+	@Column(name="s_desc", ChineseName="å…³é”®å­—æè¿°")
 	private String s_desc;
-	@Column(name="note", ChineseName="ÃèÊö")
+	@Column(name="note", ChineseName="æè¿°")
 	private String note;
-	@Column(name="content", ChineseName="ÄÚÈİ")
+	@Column(name="content", ChineseName="å†…å®¹")
 	private String content;
-	@Column(name="approver", ChineseName="ÉóºËÈË")
+	@Column(name="approver", ChineseName="å®¡æ ¸äºº")
 	private String approver;
 	public Integer getIsPass() {
 		return isPass;
@@ -109,4 +109,3 @@ public class Article {
 	public String getContent() {
 		return content;
 	}
-}

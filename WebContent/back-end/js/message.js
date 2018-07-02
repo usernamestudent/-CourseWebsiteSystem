@@ -34,6 +34,9 @@ function allMessage(){
 				exhibition();
 			}
 			document.getElementById("tbody").appendChild(flag);
+			
+			//分页
+			exhibition();
 		},
 		error:function(data){
 

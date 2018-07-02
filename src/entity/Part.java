@@ -3,14 +3,14 @@ package entity;
 import annotations.Column;
 import annotations.Table;
 
-@Table(name="part", Name="��Ŀ")
+@Table(name="part", Name="À¸Ä¿")
 public class Part {
-	@Column(isId=true, name="id", ChineseName="��ĿId", type="Integer")
+	@Column(isId=true, name="id", ChineseName="À¸Ä¿Id", type="Integer")
 	private Integer id;
-	@Column(name="column_name", ChineseName="��Ŀ��")
+	@Column(name="column_name", ChineseName="À¸Ä¿Ãû")
 	private String columnName;
-	@Column(name="father_id", ChineseName="����Ŀ", type="Integer")
-	private Integer fatherId;
+	@Column(name="father_column", ChineseName="¸¸À¸Ä¿")
+	private String fatherColumn;
 	public Integer getId() {
 		return id;
 	}
@@ -24,10 +24,10 @@ public class Part {
 	public void setColumnName(String columnName) {
 		this.columnName = columnName;
 	}
-	public Integer getFatherId() {
-		return fatherId;
+	public String getfatherColumn() {
+		return fatherColumn;
 	}
-	public void setFatherId(Integer fatherId) {
-		this.fatherId = fatherId;
+	public void setfatherColumn(String fatherColumn) {
+		this.fatherColumn = fatherColumn;
 	}
 }
