@@ -3,13 +3,13 @@ package entity;
 import annotations.Column;
 import annotations.Table;
 
-@Table(name="part", Name="À¸Ä¿")
+@Table(name="part", Name="��Ŀ")
 public class Part {
-	@Column(isId=true, name="id", ChineseName="À¸Ä¿Id", type="Integer")
+	@Column(isId=true, name="id", ChineseName="��ĿId", type="Integer")
 	private Integer id;
-	@Column(name="column_name", ChineseName="À¸Ä¿Ãû")
+	@Column(name="column_name", ChineseName="��Ŀ��")
 	private String columnName;
-	@Column(name="father_column", ChineseName="¸¸À¸Ä¿")
+	@Column(name="father_column", ChineseName="����Ŀ")
 	private String fatherColumn;
 	public Integer getId() {
 		return id;
