@@ -97,23 +97,33 @@ function addArticle() {
 	var date = $("#datetime").val();
 	var data = JSON.parse(sessionStorage.getItem('key'));
 	var author = data[0].name;
+
+	var file = document.getElementById("file0").files[0];
+	var formData = new FormData();
+	formData.append("type", "add");
+	formData.append("title", title);
+	formData.append("author", author);
+	formData.append("column_name", column);
+	formData.append("create_time", date);
+	formData.append("s_title", s_title);
+	formData.append("s_keywords", s_keywords);
+	formData.append("s_desc", s_desc);
+	formData.append("note", note);
+	formData.append("content", content);
+	formData.append("image", file);
+	if(file == null){
+		formData.append("image","");
+	}
+
 	if(column != "" && data != ""){
 		$.ajax({
 			type:"post",
 			url:"../../ObjectServlet?method=article",
-			async:true,
-			data:{
-				"type":"add",
-				"title":title,
-				"author":author,
-				"column_name":column,
-				"create_time":date,
-				"s_title":s_title,
-				"s_keywords":s_keywords,
-				"s_desc":s_desc,
-				"note":note,
-				"content":content,
-			},
+			enctype: "multipart/form-data", 
+			contentType : false,
+			processData : false, 
+			async: false,
+			data : formData,
 			success:function(data){
 				alert("添加成功");
 			},
@@ -220,7 +230,8 @@ function del(row, id) {
 			},
 			success:function(data){
 				$(row).parent().parent().parent().remove();
-				alert("删除成功");
+				//分页
+				exhibition();
 			},
 			error:function(data){
 				alert("删除失败");
@@ -256,8 +267,35 @@ function DelSelect() {
 						document.getElementById('tbody').deleteRow(rowArray[i] - i);
 					}
 					$("#checkall").prop("checked", false);
+
+					//分页
+					exhibition();
 				},
 			});
 		}
 	}
 } 
+
+function changeImg(files){
+	var objUrl = getObjectURL(files.files[0]);
+	console.log("objUrl = " + objUrl);
+	if(objUrl){
+		$("#img0").attr("src",objUrl);
+	}
+}
+
+function getObjectURL(file){
+	var urk  = null;
+
+	if(window.createObjectURL != undefined){
+		url = window.createObjectURL(file);
+	}
+	else if(window.URL != undefined){
+		url = window.URL.createObjectURL(file);
+	}
+	else if(window.webkitURL != undefined){
+		url = window.webkitURL.createObjectURL(file);
+	}
+
+	return url;
+}
