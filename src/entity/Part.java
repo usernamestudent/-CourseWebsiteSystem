@@ -9,8 +9,8 @@ public class Part {
 	private Integer id;
 	@Column(name="column_name", ChineseName="으커츰")
 	private String columnName;
-	@Column(name="father_id", ChineseName="만으커", type="Integer")
-	private Integer fatherId;
+	@Column(name="father_column", ChineseName="만으커")
+	private String fatherColumn;
 	public Integer getId() {
 		return id;
 	}
@@ -28,14 +28,10 @@ public class Part {
 	public void setColumnName(String columnName) {
 		this.columnName = columnName;
 	}
-	public Integer getFatherId() {
-		return fatherId;
+	public String getfatherColumn() {
+		return fatherColumn;
 	}
-	public void setFatherId(String fatherId) {
-		if(fatherId != null) {
-			this.fatherId = Integer.valueOf(fatherId);
-		}else {
-			this.fatherId = null;
-		}
+	public void setfatherColumn(String fatherColumn) {
+		this.fatherColumn = fatherColumn;
 	}
 }

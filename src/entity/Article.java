@@ -29,6 +29,8 @@ public class Article {
 	private String note;
 	@Column(name="content", ChineseName="ƒ⁄»›")
 	private String content;
+	@Column(name="approver", ChineseName="…Û≈˙»À")
+	private String approver;
 	public Integer getId() {
 		return id;
 	}
@@ -70,13 +72,8 @@ public class Article {
 	public Integer isPass() {
 		return isPass;
 	}
-	public void setPass(String isPass) {
-		if(isPass != null) {
-			this.isPass = Integer.valueOf(isPass);
-		}else {
-			this.isPass = null;
-		}
-
+	public void setPass(Integer isPass) {
+		this.isPass = isPass;
 	}
 	public String getS_title() {
 		return s_title;
@@ -110,5 +107,14 @@ public class Article {
 	}
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
+	}
+	public Integer getIsPass() {
+		return isPass;
+	}
+	public String getApprover() {
+		return approver;
+	}
+	public void setApprover(String approver) {
+		this.approver = approver;
 	}
 }

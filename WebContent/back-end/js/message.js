@@ -28,6 +28,9 @@ function allMessage(){
 				flag.appendChild(tr);
 			}
 			document.getElementById("tbody").appendChild(flag);
+			
+			//分页
+			exhibition();
 		},
 		error:function(data){
 

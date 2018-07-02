@@ -1,16 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title>后台管理中心</title>
+<script src="../js/pintuer.js"></script>
+</head>
+<body>
 <div class="panel admin-panel margin-top">
 	<div class="panel-head" id="add">
 		<strong><span class="icon-pencil-square-o"></span>增加内容</strong>
 	</div>
 	<div class="body-content">
-		<form method="post" class="form-x" action="">
-			<input type="hidden" name="id" value="" />
+		<form method="post" class="form-x">
 			<div class="form-group">
 				<div class="label">
 					<label>栏目名称：</label>
 				</div>
 				<div class="field">
-					<input type="text" class="input w50" name="title" value=""
+					<input type="text" class="input w50" 
 						data-validate="required:请输入栏目名称"  id="column"/>
 					<div class="tips"></div>
 				</div>
@@ -20,12 +31,15 @@
 					<label>父栏目：</label>
 				</div>
 				<div class="field">
-					<select id="fatherId" class="input w50">
-						<option value="1">请选择分类</option>
-						<option value="2">产品分类</option>
-						<option value="3">产品分类</option>
-						<option value="4">产品分类</option>
-						<option value="5">产品分类</option>
+					<select id="fatherColumn" class="input w50" data-validate="required:请输入栏目名称">
+						<option value="">请选择分类</option>
+						<option value="首页">首页</option>
+						<option value="课程介绍">课程介绍</option>
+						<option value="教学团队">教学团队</option>
+						<option value="课程建设">课程建设</option>
+						<option value="课程资源">课程资源</option>
+						<option value="问题与答疑">问题与答疑</option>
+						<option value="课程建设">课程建设</option>
 					</select>
 					<div class="tips"></div>
 				</div>
@@ -35,7 +49,7 @@
 					<label></label>
 				</div>
 				<div class="field">
-					<button class="button bg-main icon-check" type="submit" onclick="addColumn()">
+					<button class="button bg-main icon-check" type="submit" id="submit">
 						提交</button>
 					<button class="button bg-sub icon-undo" type="button"
 						onclick="back()">返回</button>
@@ -44,3 +58,4 @@
 		</form>
 	</div>
 </div>
+</body>

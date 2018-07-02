@@ -9,7 +9,7 @@
 <title>后台管理中心</title>
 <script src="../js/pintuer.js"></script>
 </head>
-<body>
+<body onload="loadColumn()">
 	<div class="panel admin-panel">
 		<div class="panel-head" id="add">
 			<strong><span class="icon-pencil-square-o"></span>增加内容</strong>
@@ -32,12 +32,8 @@
 					</div>
 					<div class="field">
 						<select id="column" class="input w50"
-							data-validate="required:请输入栏目名称">
+							data-validate="required:请输入栏目名称" onfocus="loadColumn()">
 							<option value="">请选择分类</option>
-							<option value="产品分类">产品分类</option>
-							<option value="产品分类">产品分类</option>
-							<option value="产品分类">产品分类</option>
-							<option value="产品分类">产品分类</option>
 						</select>
 						<div class="tips"></div>
 					</div>

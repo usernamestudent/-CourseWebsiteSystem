@@ -1,26 +1,13 @@
-function display() {
-	var htmlobj=$.ajax({url:"columnShow.html",async:false});
-	$("#myDiv").html(htmlobj.responseText);
-	showColumn();
-}
-
-function addHtml() {
-	var htmlobj=$.ajax({url:"columnAdd.html",async:false});
-	$("#myDiv").html(htmlobj.responseText);
-	$("#submit").on("click", function() {
-		addColumn();
-	})
-}
 
 function back() {
-	display();
+	showArticle();
 }
 
 var all = "";
-function showColumn(){
+function showArticle(){
 	$.ajax({
 		type:"post",
-		url:"../../ObjectServlet?method=part",
+		url:"../../ObjectServlet?method=article",
 		async:true,
 		data:{
 			"type":"select",
@@ -32,17 +19,16 @@ function showColumn(){
 			for (var i = 0; i < arry.length; i++) {
 				var tr = document.createElement("tr"); 
 				var str = "";
-				str += '<td><input type="checkbox" name="id" onclick="judgeAll()" value="'+ arry[i].id + '" /></td>';
-				str += '<td>' + arry[i].columnName + '</td>';
-				if (arry[i].fatherColumn == "") {
-					str += '<td>无</td>';
+				str += '<td>' + arry[i].title + '</td>';
+				str += '<td>' + arry[i].author + '</td>';
+				str += '<td>' + arry[i].approver + '</td>';
+				if (arry[i].isPass == "1") {
+					str += '<td>是</td>';
 				} else {
-					str += '<td>' + arry[i].fatherColumn + '</td>';
+					str += '<td>否</td>';
 				}
 				str += '<td><div class="button-group"><a class="button border-main"';
-				str += ' onclick="modify('+ i +')"><span class="icon-edit"></span> 修改</a>';
-				str += '<a class="button border-red" href="javascript:void(0)"'; 
-				str +=	' onclick="del(this, '+ arry[i].id +')"><span class="icon-trash-o"></span> 删除</a></div></td>';
+				str += ' onclick="modify('+ i +')"><span class="icon-edit"></span> 修改</a></div></td>';
 				tr.innerHTML = str;
 				flag.appendChild(tr);
 			}
@@ -53,29 +39,6 @@ function showColumn(){
 
 		}
 	})
-}
-
-function addColumn(){
-	var column = $("#column").val();
-	var fatherColumn = $('#fatherColumn option:selected').val();
-	if(column != "" && fatherColumn != ""){
-		$.ajax({
-			type:"post",
-			url:"../../ObjectServlet?method=part",
-			async:true,
-			data:{
-				"type":"add",
-				"column_name":column,
-				"father_column":fatherColumn,
-			},
-			success:function(data){
-				alert("添加成功");
-			},
-			error:function(data){
-				alert("添加成功");
-			}
-		})
-	}
 }
 
 function modify(i) {
