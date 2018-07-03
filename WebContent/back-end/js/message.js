@@ -56,6 +56,7 @@ function del(row,id) {
 			},
 			success:function(data){
 				$(row).parent().parent().parent().remove();
+				exhibition();
 			},
 			error:function(data){
 
@@ -135,6 +136,7 @@ function DelSelect() {
 						document.getElementById('tbody').deleteRow(rowArray[i] - i);
 					}
 					$("#checkall").prop("checked", false);
+					exhibition();
 				},
 			});
 		}

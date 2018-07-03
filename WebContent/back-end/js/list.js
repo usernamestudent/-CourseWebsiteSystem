@@ -112,8 +112,7 @@ function addArticle() {
 	formData.append("content", content);
 	formData.append("image", file);
 	if(file == null){
-		var image = document.getElementById("img0").src;
-		formData.append("image",image);
+		formData.append("image","");
 	}
 
 	if(column != "" && data != ""){
@@ -123,6 +122,7 @@ function addArticle() {
 			enctype: "multipart/form-data", 
 			contentType : false,
 			processData : false, 
+			async: false,
 			data : formData,
 			success:function(data){
 				alert("添加成功");

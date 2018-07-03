@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.sql.Date;
 import java.util.Enumeration;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -141,7 +143,8 @@ public class ObjectServlet extends HttpServlet {
 		}
 	}
 
-	private HashMap<String, String> getPath(HttpServletRequest request) {
+	private HashMap<String, String> getPath(HttpServletRequest request) throws UnsupportedEncodingException {
+		request.setCharacterEncoding("UTF-8");
 		HashMap<String, String> hashMap = new HashMap<>();
 		String fName = "";
 		String suffix = "";
@@ -157,10 +160,9 @@ public class ObjectServlet extends HttpServlet {
 		try {
 			List<FileItem> list = (List<FileItem>) upload.parseRequest(request);
 			for (FileItem item : list) {
-
 				String name = item.getFieldName();
 				if(!name.equals("image")) {
-					String value = (String)item.getString();
+					String value = (String)item.getString("UTF-8");
 					hashMap.put(name, value);
 				}else {
 					if (item.isFormField()) {
@@ -192,11 +194,12 @@ public class ObjectServlet extends HttpServlet {
 						if(fName != null){
 							String image = "http://localhost:8080/img/"+fName;
 							request.setAttribute("image", image);
+						} else {
+							request.setAttribute("image", "");
 						}
 						InputStream in = item.getInputStream();
 						int length = 0;
 						byte[] buf = new byte[1024];
-						System.out.println("获取上传文件的总共的容量: " + item.getSize());
 						while ((length = in.read(buf)) != -1) {
 							out.write(buf, 0, length);
 						}
@@ -212,7 +215,6 @@ public class ObjectServlet extends HttpServlet {
 
 		String picture = (String) request.getAttribute("image");
 		hashMap.put("image", picture);
-
 		return hashMap;
 	}
 
