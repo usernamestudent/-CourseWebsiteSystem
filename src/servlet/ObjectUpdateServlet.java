@@ -56,7 +56,11 @@ public class ObjectUpdateServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String method = request.getParameter("method");
 		HashMap<String, String> hashMap = getHashMap(request);
-		Integer id = Integer.valueOf(hashMap.get("id"));
+		String str = hashMap.get("id");
+		Integer id = null;
+		if(str != null){
+			id = Integer.valueOf(hashMap.get("id"));
+		}
 		boolean falg = false;
 		switch(method){
 		case "part":
@@ -76,7 +80,7 @@ public class ObjectUpdateServlet extends HttpServlet {
 			break;
 		case "article":
 			Article oldArticle = new Article();
-			if(id != null) {
+			if(id == null) {
 				hashMap = getPath(request);
 				id = Integer.valueOf(hashMap.get("id"));
 			}
@@ -211,8 +215,10 @@ public class ObjectUpdateServlet extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 		String picture = (String) request.getAttribute("image");
 		hashMap.put("image", picture);
 		return hashMap;
 	}
+
 }

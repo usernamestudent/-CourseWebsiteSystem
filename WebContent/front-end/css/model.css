@@ -1,0 +1,89 @@
+@charset "UTF-8";
+
+* {
+	margin: auto;
+	padding: 0;
+}
+
+.content {
+	background-color: #f4f8fc; /*#f4f8fc;*/
+	width: 63%;
+	height: 776px;
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.left {
+	margin-top: 3%;
+	width: 25%;
+	height: 100%;
+}
+
+.nav {
+	width: 90%;
+	height: 40%;
+	text-align: center;
+}
+
+.top_navigation {
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 11%;
+	background-color: #66a2de;
+	border-radius: 5px;
+	box-shadow: 2px 2px 1px #ccc;
+	padding-bottom: 5px;
+}
+
+.left_navigation {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: black;
+	width: 94%;
+	height: 12%;
+	background-color: #cfe3f8;
+	border-bottom: 1px solid white;
+}
+
+.left_navigation:hover {
+	color: #1c5fa3;
+	background-color: #f5f5f5;
+}
+
+.left_navigation:active {
+	color: #1c5fa3;
+	background-color: #f5f5f5;
+}
+
+.right {
+	margin-left: 20px;
+	width: 75%;
+	height: 100%;
+	background-color: #f4f8fc;
+}
+
+.right-top {
+	margin-top: 25px;
+	color: #66a2de;
+	width: 95%;
+	height: 4%;
+	border-bottom: 2px solid #66a2da;
+}
+
+.courseName {
+	float: left;
+}
+
+.addition {
+	float: right;
+}
+
+.right-content {
+	margin-top: 10px;
+	width: 90%;
+	height: 80%;
+	display: none;
+}

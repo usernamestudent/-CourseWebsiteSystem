@@ -8,49 +8,97 @@
 <meta name="renderer" content="webkit">
 <title>后台管理中心</title>
 <link rel="stylesheet" href="../ztree/zTreeStyle.css" type="text/css">
-<script type="text/javascript" src="../ztree/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="../ztree/jquery.min.js"></script>
 <script type="text/javascript" src="../ztree/jquery.ztree.core.js"></script>
 <script>
         var zTreeObj;
-        var setting = {}; // zTree 的参数配置，后面详解
-        var zNodes = [ // zTree 的数据属性，此处使用标准json格式
-            {
-                name: "所有栏目",
-                open: true,
-                children: [{
-                        name: "首页",
-                        children: [{name: "课程简介", name: "课程负责人", name: "课程动态", name: "教学资源", name: "课程组成员"}]
-                    },
-                    {
-                        name: "课程介绍",
-                        children: [{name: "课程简介", name: "教学方法", name: "课程安排", name: "课程大纲", name: "课程理念与目标", name: "课程动态"}]
-                    },
-                    {
-                        name: "教学团队",
-                        children: [{name: "团队资料"}]
-                    },
-                    {
-                        name: "课程设计",
-                        children: [{name: "课程设计规划"}]
-                    },
-                    {
-                        name: "课程资源",
-                        children: [{name: "教学视频", name: "教学课件"}]
-                    },
-                    {
-                        name: "问题与答疑",
-                        children: [{name: "问题查看"}, {name: "答疑方案"}]
-                    },
-                    {
-                        name: "课程研究",
-                        children: [{name: "研究项", name: "研究成果"}]
-                    }
-                ]
-            }
-        ];
+        var setting = {
+    			view: {
+    				dblClickExpand: false,
+    				showLine: false
+    			},
+    			data: {
+    				simpleData: {
+    					enable: true
+    				}
+    			},
+    			callback: {
+    				onClick: onClick
+    			}
+    		};
+        var arry = ""; 
         $(document).ready(function () {
-            zTreeObj = $.fn.zTree.init($("#tree"), setting, zNodes); //初始化zTree，三个参数一次分别是容器(zTree 的容器 className 别忘了设置为 "ztree")、参数配置、数据源
+            $.ajax({
+        		type:"post",
+        		url:"../../ObjectServlet?method=part",
+        		async:false,
+        		data:{
+        			"type":"select",
+        		},
+        		success:function(data){
+        			arry = JSON.parse(data);
+        			getNode();
+        		},
+        		error:function(data){
+        		}
+        	})
         });
+        
+        function getChildren(fatherColumn) {
+        	var childrens = [];
+        	for (var i = 0; i < arry.length; i++) {
+        		if (arry[i].fatherColumn == fatherColumn) {
+        			var children = {
+        				'name': arry[i].columnName
+        			}
+        			childrens.push(children);
+        		}
+        	}
+        	return childrens;
+        }
+        
+        function getNode() {
+        	var zNodes = [ // zTree 的数据属性，此处使用标准json格式
+        	               {
+        	                   name: "所有栏目",
+        	                   open: true,
+        	                   children: [{
+        	                           name: "首页",
+        	                           children: getChildren("首页")
+        	                       },
+        	                       {
+        	                           name: "课程介绍",
+        	                           children: getChildren("课程介绍")
+        	                       },
+        	                       {
+        	                           name: "教学团队",
+        	                           children: getChildren("教学团队")
+        	                       },
+        	                       {
+        	                           name: "课程设计",
+        	                           children: getChildren("课程设计")
+        	                       },
+        	                       {
+        	                           name: "课程资源",
+        	                           children: getChildren("课程资源")
+        	                       },
+        	                       {
+        	                           name: "问题与答疑",
+        	                           children: getChildren("问题与答疑")
+        	                       },
+        	                       {
+        	                           name: "课程研究",
+        	                           children: getChildren("课程研究")
+        	                       }
+        	                   ]
+        	               }
+        	           ];
+        	zTreeObj = $.fn.zTree.init($("#tree"), setting, zNodes); //初始化zTree，三个参数一次分别是容器(zTree 的容器 className 别忘了设置为 "ztree")、参数配置、数据源
+        }
+        
+        function onClick(e,treeId, treeNode) {
+        	parent.window.treeSearch(treeNode.name);
+		}
     </script>
 
 </head>
