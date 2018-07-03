@@ -12,15 +12,15 @@ function login(){
 			data:{
 				"type":"select",
 				"id":userId,
-				"password":password,
+				"password":password
 			},
 			success:function(data){
 				sessionStorage.clear();
 				sessionStorage.setItem('key', data);
-				window.location.href = "../html/index.html";
+				self.location = "../html/index.html";
 			},
 			error:function(data){
-				alert("error");
+				alert("密码错误");
 			}
 		})
 	}

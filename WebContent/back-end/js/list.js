@@ -5,6 +5,9 @@ var all = "";
 function display() {
 	var htmlobj=$.ajax({url:"articleShow.html",async:false});
 	$("#myDiv").html(htmlobj.responseText);
+	
+	var htmlobj=$.ajax({url:"tree.html",async:false});
+	$("#tree").html(htmlobj.responseText);
 	//展示文章
 	$.ajax({
 		type:"post",
@@ -147,6 +150,7 @@ function modify(i) {
 	column.appendChild(optNode);
 	$("#column").val(arry[i].columnName);
 	$("#note").val(arry[i].note);
+	$("#img0").attr("src",arry[i].image);
 	$("#content").val(arry[i].content);
 	$("#s_title").val(arry[i].s_title);
 	$("#s_keywords").val(arry[i].s_keywords);
@@ -169,29 +173,41 @@ function update(id) {
 	var date = $("#datetime").val();
 	var data = JSON.parse(sessionStorage.getItem('key'));
 	var author = data[0].name;
-	$.ajax({
-		type:"post",
-		url:"../../ObjectUpdateServlet?method=article",
-		async:true,
-		data:{
-			"id": id,
-			"title":title,
-			"author":author,
-			"column_name":column,
-			"create_time":date,
-			"s_title":s_title,
-			"s_keywords":s_keywords,
-			"s_desc":s_desc,
-			"note":note,
-			"content":content
-		},
-		success:function(data){
-			alert("修改成功")
-		},
-		error:function(data){
+	
+	var file = document.getElementById("file0").files[0];
+	var formData = new FormData();
+	formData.append("id", id);
+	formData.append("title", title);
+	formData.append("author", author);
+	formData.append("column_name", column);
+	formData.append("create_time", date);
+	formData.append("s_title", s_title);
+	formData.append("s_keywords", s_keywords);
+	formData.append("s_desc", s_desc);
+	formData.append("note", note);
+	formData.append("content", content);
+	formData.append("image", file);
+	if(file == null){
+		var image = $("#img0").attr("src"); 
+		formData.append("image",image);
+	}
 
-		}
-	})
+	if(column != "" && data != ""){
+		$.ajax({
+			type:"post",
+			url:"../../ObjectUpdateServlet?method=article",
+			enctype: "multipart/form-data", 
+			contentType : false,
+			processData : false, 
+			async: false,
+			data : formData,
+			success:function(data){
+				alert("修改成功");
+			},
+			error:function(data){
+			}
+		})
+	}
 }
 
 function view(i) {
@@ -205,6 +221,7 @@ function view(i) {
 	column.appendChild(optNode);
 	$("#column").val(arry[i].columnName);
 	$("#note").val(arry[i].note);
+	$("#img0").attr("src",arry[i].image);
 	$("#content").val(arry[i].content);
 	$("#s_title").val(arry[i].s_title);
 	$("#s_keywords").val(arry[i].s_keywords);

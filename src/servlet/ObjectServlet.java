@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -201,7 +200,6 @@ public class ObjectServlet extends HttpServlet {
 						InputStream in = item.getInputStream();
 						int length = 0;
 						byte[] buf = new byte[1024];
-						System.out.println("获取上传文件的总共的容量: " + item.getSize());
 						while ((length = in.read(buf)) != -1) {
 							out.write(buf, 0, length);
 						}

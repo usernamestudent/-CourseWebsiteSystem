@@ -1,3 +1,32 @@
+function treeSearch(seacrchInfo) {
+	var info = seacrchInfo;
+	if (seacrchInfo == "所有栏目") {
+		info = "";
+	}
+	var tab = document.getElementById("tbody");
+	var rows = tab.rows;
+	var serachArray = [];
+	var Wholeinfo = "";
+
+	for (var i = 0; i < rows.length; i++) {//找到table的每行信息满足搜索找到指定所在的行
+		Wholeinfo = "";
+		rows[i].style.display = '';
+		for (var j = 0; j < rows[i].cells.length; j++) {
+			Wholeinfo += rows[i].cells[j].innerText;//每行的信息连接成字符串
+		}
+		if (Wholeinfo.indexOf(info) == -1) {//与搜索内容比较
+			serachArray.push(i);
+		}
+	}
+
+	for (var i = 0; i < serachArray.length; i++) {//隐藏不满足搜索的行
+		rows[serachArray[i]].style.display = 'none';
+	}
+	
+	//分页
+	exhibition();
+}
+
 //搜索
 function changesearch() {
 	var info = $("#search").val();
@@ -20,6 +49,9 @@ function changesearch() {
 	for (var i = 0; i < serachArray.length; i++) {//隐藏不满足搜索的行
 		rows[serachArray[i]].style.display = 'none';
 	}
+
+	//分页
+	exhibition();
 }
 
 

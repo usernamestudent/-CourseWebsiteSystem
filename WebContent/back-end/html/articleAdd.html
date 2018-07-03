@@ -40,6 +40,16 @@
 				</div>
 				<div class="form-group">
 					<div class="label">
+						<label>图片：</label>
+					</div>
+					<div class="field">
+						<input type="file" id="file0" name="file1"
+							onchange="changeImg(this)"> <br /> <img src="" id="img0"
+							width="200px" height="200px"> <br />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="label">
 						<label>描述：</label>
 					</div>
 					<div class="field">
@@ -104,10 +114,6 @@
 							onclick="back()">返回</button>
 					</div>
 				</div>
-			</form>
-			<form enctype="multipart/form-data" method="post">
-				<input type="file" id="file0" name="file1" onchange="changeImg(this)"> <br /> <img
-					src="" id="img0" width="200px" height="200px"> <br />
 			</form>
 		</div>
 	</div>
